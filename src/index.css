@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@tailwind base;
+@tailwind components;
+
+.titles {
+  @apply font-bold text-[30px] tracking-wider capitalize;
+}
+@tailwind utilities;
+
+.transisi {
+  @apply transition-all duration-200 ease-in;
+}
+.translinear {
+  @apply transition-all duration-200 ease-linear;
+}
+.formLogin {
+  @apply w-full absolute h-full  border-b-2    focus:border-primary/60 focus:placeholder:opacity-0 bg-white group-hover:border-primary/60 outline-none  px-1;
+}
+
+.borders {
+  @apply border border-black;
+}
+
+.content {
+  @apply lg:px-[70px] px-4;
+}
+
+.btn {
+  @apply bg-primary text-white hover:bg-secondary active:scale-95  flex justify-center items-center hover:font-semibold transition-all duration-150 ease-linear;
+}
+
+.btn2 {
+  @apply bg-base border border-solid border-primary  active:scale-95  flex justify-center items-center hover:font-semibold;
+}
+
+.title {
+  @apply font-bold text-[20px] tracking-wider capitalize;
+}
+
+.inputProduk {
+  @apply outline-none border h-9 w-full rounded-lg px-2;
+}
