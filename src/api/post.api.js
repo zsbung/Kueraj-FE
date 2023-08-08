@@ -1,10 +1,22 @@
 import axiosInstance from "../configs/AxiosInstance";
 
 const POST = {
+  async addKategori(data) {
+    try {
+      const { name, image } = data;
+      const response = await axiosInstance.post("kategori", {
+        name,
+        image,
+      });
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
   async addProduk(data) {
     try {
       const {
-        cate_id,
+        kategori_id,
         nama,
         deskripsi,
         harga,
@@ -15,7 +27,7 @@ const POST = {
         stok,
       } = data;
       const response = await axiosInstance.post("produk", {
-        cate_id,
+        kategori_id,
         nama,
         harga,
         deskripsi,
@@ -33,7 +45,7 @@ const POST = {
   async updateProduk(data, id) {
     try {
       const {
-        cate_id,
+        kategori_id,
         nama,
         deskripsi,
         harga,
@@ -42,9 +54,13 @@ const POST = {
         foto3,
         status,
         stok,
+        ukuran_S,
+        ukuran_M,
+        ukuran_L,
+        ukuran_XL,
       } = data;
       const response = await axiosInstance.put(`produk/${id}`, {
-        cate_id,
+        kategori_id,
         nama,
         harga,
         deskripsi,
@@ -53,6 +69,10 @@ const POST = {
         foto3,
         status,
         stok,
+        ukuran_S,
+        ukuran_M,
+        ukuran_L,
+        ukuran_XL,
       });
       return response;
     } catch (error) {

@@ -1,63 +1,82 @@
 import { FormatRupiah } from "@arismun/format-rupiah";
 import React, { useEffect, useState } from "react";
 import { BiPlusCircle, BiSearch } from "react-icons/bi";
-import { Link } from "react-router-dom";
-import Get from "../../../api/get.api";
-import ModalEdit from "../../../components/modals/ModalEdit";
-import getDatas from "../../../hooks/getDatas";
-import LoadingTable from "../../../components/loading/LoadingTable";
 import { DELETE } from "../../../api/delete.api";
-import ModalTambahProduk from "../../../components/modals/ModalTambahProduk";
+import LoadingTable from "../../../components/loading/LoadingTable";
+import Fetcher from "../../../utils/Fetcher";
+import ButtonPrimary from "../../../components/buttons/ButtonPrimary";
+import SearchProduk from "../../../components/Search/SearchProduk";
+import { AnimatePresence } from "framer-motion";
+import ModalEditProduk from "../../../components/modals/produk/ModalEditProduk";
+import ModalTambahProduk from "../../../components/modals/produk/ModalTambahProduk";
+import ModalHapus from "../../../components/ModalHapus";
+import { Toaster, toast } from "react-hot-toast";
 export default function Produk() {
   const [show, setShow] = useState({
     modalEdit: false,
     modalTambah: false,
+    modalHapus: false,
     data: {},
   });
-  const { loading, data, error, setFetched, fetched } = getDatas(Get.produk);
+  const [message, setMessage] = useState("");
+  const { data, loading, error, fetched, setFetched } = Fetcher("produk");
   const handleDeleteProduk = (e, id) => {
     e.preventDefault();
-    DELETE.deleteProduk(id).then((res) => console.log(res));
+    DELETE.deleteProduk(id).then((res) => console.log(res.data.message));
+  };
+  const handleOnchange = (e) => {
+    console.log(e.target.value);
   };
 
+  useEffect(() => {
+    if (message !== "") {
+      toast.success(message);
+      setMessage("");
+    }
+  }, [message]);
   return (
     <>
-      {show.modalEdit && (
-        <ModalEdit
-          setFetched={setFetched}
-          fetched={fetched}
+      <AnimatePresence>
+        {show.modalEdit && (
+          <ModalEditProduk
+            setFetched={setFetched}
+            setModal={setShow}
+            data={show.data}
+            setMessage={setMessage}
+          />
+        )}
+        {show.modalTambah && (
+          <ModalTambahProduk
+            setFetched={setFetched}
+            setModal={setShow}
+            setMessage={setMessage}
+          />
+        )}
+      </AnimatePresence>
+      {show.modalHapus && (
+        <ModalHapus
           setModal={setShow}
-          data={show.data}
+          setMessage={setMessage}
+          datas={show.data}
+          setFetched={setFetched}
         />
       )}
-      {show.modalTambah && <ModalTambahProduk setModal={setShow} />}
+      <Toaster />
       {error && error}
       <div className="flex justify-between w-full mb-4">
         <div>
-          <div htmlFor="" className="relative  ">
-            <input
-              type="text"
-              placeholder="cari produk..."
-              className="outline-none peer rounded-lg  w-56 h-10 border px-2 "
-              name=""
-              id="produk"
-            />
-            <label
-              htmlFor="produk"
-              className="absolute flex items-center text-abu peer-focus:text-primary transisi  h-full right-0 top-0 px-2"
-            >
-              <BiSearch size={25} className="" />
-            </label>
-          </div>
+          <SearchProduk
+            text={"cari produk..."}
+            name={"produk"}
+            onChange={handleOnchange}
+          />
         </div>
         <div>
-          <button
-            onClick={() => setShow({ modalTambah: !show.modalTambah })}
-            className="btn px-2 py-2 rounded-lg flex items-center gap-x-1"
-          >
-            <BiPlusCircle size={25} />
-            Tambah Produk
-          </button>
+          <ButtonPrimary
+            icon={<BiPlusCircle size={25} />}
+            text={"tambah produk"}
+            onclick={() => setShow({ modalTambah: !show.modalTambah })}
+          />
         </div>
       </div>
       {loading && <LoadingTable />}
@@ -76,9 +95,9 @@ export default function Produk() {
           </thead>
           <tbody>
             {data &&
-              data.data?.data?.map((produks) => (
+              data.data?.data?.map((produks, index) => (
                 <tr key={produks.id} className="border">
-                  <td className=" text-center">1</td>
+                  <td className=" text-center">{++index}</td>
                   <td className="flex justify-center items-center">
                     <img className="h-12 w-12" src={produks.foto} alt="" />
                   </td>
@@ -103,7 +122,12 @@ export default function Produk() {
                         edit
                       </button>
                       <button
-                        onClick={(e) => handleDeleteProduk(e, produks.id)}
+                        onClick={() =>
+                          setShow({
+                            modalHapus: !show.modalHapus,
+                            data: { item: "produk", id: produks.id },
+                          })
+                        }
                         className="btn py-1 px-2 rounded-lg capitalize"
                       >
                         hapus

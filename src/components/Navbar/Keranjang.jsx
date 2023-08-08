@@ -3,10 +3,18 @@ import { motion, useAnimation } from "framer-motion";
 import React, { useContext, useEffect } from "react";
 import { IoIosCart } from "react-icons/io";
 import { MyContext } from "../../context/Context";
+import axiosInstance from "../../configs/AxiosInstance";
 export default function Keranjang() {
-  const { trowx, cart } = useContext(MyContext);
+  const { trowx, setTrowx } = useContext(MyContext);
   const animation = useAnimation();
   const cartAnimation = useAnimation();
+
+  useEffect(() => {
+    axiosInstance
+      .get("jmlkeranjang")
+      .then((res) => setTrowx({ count: res.data.jml }));
+  }, []);
+
   useEffect(() => {
     if (trowx && trowx.count !== 0 && trowx.count !== trowx.count + 1) {
       animation.start({
@@ -50,7 +58,7 @@ export default function Keranjang() {
           Keranjang
         </div>
 
-        <div className="absolute right-0 lg:-right-24 mt-1  w-[20rem] flex flex-col   bg-base shadow-lg rounded-xl h-0 group-hover:h-40   overflow-hidden text-sm  z-[10] transition-all duration-500 ease-in-out ">
+        {/* <div className="absolute right-0 lg:-right-24 mt-1  w-[20rem] flex flex-col   bg-base shadow-lg rounded-xl h-0 group-hover:h-40   overflow-hidden text-sm  z-[10] transition-all duration-500 ease-in-out ">
           {cart &&
             cart.map((m, index) => (
               <div
@@ -68,7 +76,7 @@ export default function Keranjang() {
           <p className="text-sm  p-2 hover:underline text-text text-center w-full">
             Lihat semua...
           </p>
-        </div>
+        </div> */}
       </div>
     </>
   );

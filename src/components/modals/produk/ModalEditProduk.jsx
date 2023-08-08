@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
-import { storage } from "../../configs/Firebase";
+import { storage } from "../../../configs/Firebase";
 import { BsFileEarmarkImageFill } from "react-icons/bs";
-import Exit from "../Exit";
+import Exit from "../../Exit";
 import { motion } from "framer-motion";
-import POST from "../../api/post.api";
-export default function ModalEdit({ setModal, data, setFetched, fetched }) {
+import POST from "../../../api/post.api";
+import Fetcher from "../../../utils/Fetcher";
+export default function ModalEditProduk({
+  setModal,
+  data,
+  setFetched,
+  setMessage,
+}) {
   const {
-    cate_id,
+    kategori_id,
     nama,
     deskripsi,
     foto,
@@ -17,33 +23,44 @@ export default function ModalEdit({ setModal, data, setFetched, fetched }) {
     harga,
     status,
     stok,
+    ukuran_S,
+    ukuran_M,
+    ukuran_L,
+    ukuran_XL,
     id,
   } = data;
+  const { data: kategoris } = Fetcher("kategori");
+
   const [form, setForm] = useState({
-    cate_id: cate_id,
-    nama: nama,
-    deskripsi: deskripsi,
-    foto: foto,
-    foto2: foto2,
-    foto3: foto3,
-    harga: harga,
-    status: status,
-    stok: stok,
+    kategori_id: data?.kategori_id,
+    nama: data?.nama,
+    deskripsi: data?.deskripsi,
+    foto: data?.foto,
+    foto2: data?.foto2,
+    foto3: data?.foto3,
+    harga: data?.harga,
+    stok: data?.stok,
+    status: data?.status,
+    ukuran_S: data?.ukuran_S,
+    ukuran_L: data?.ukuran_L,
+    ukuran_XL: data?.ukuran_XL,
+    ukuran_M: data?.ukuran_M,
   });
   const handleOnchange = (e) => {
-    const { name, value, checked } = e.target;
+    const { name, value, checked, type } = e.target;
     setForm({
       ...form,
-      [name]: name == "status" ? checked : value,
+      [name]:
+        name == "status"
+          ? checked
+          : type == "checkbox"
+          ? checked
+          : type == "number"
+          ? Number(value)
+          : value,
     });
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    POST.updateProduk(form, id).then((res) => {
-      setModal(false);
-      setFetched(!fetched);
-    });
-  };
+
   const handleFoto = async (e) => {
     const imageUpload = e.target.files[0];
     if (!imageUpload) return;
@@ -74,6 +91,16 @@ export default function ModalEdit({ setModal, data, setFetched, fetched }) {
       });
     });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    POST.updateProduk(form, id).then((res) => {
+      setMessage(res.data.message);
+      setModal(false);
+      setFetched(false);
+    });
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -96,10 +123,25 @@ export default function ModalEdit({ setModal, data, setFetched, fetched }) {
       "
           >
             <div>
-              <label htmlFor="nama" className="block">
+              <label htmlFor="nama" className="block capitalize">
                 Kategori
               </label>
-              <input type="text" className="inputProduk" />
+              <select
+                className="w-full cursor-pointer h-9 outline-none border rounded-lg"
+                name="kategori"
+                defaultValue={kategori_id}
+                id=""
+              >
+                {kategoris?.data?.map((kate) => (
+                  <option
+                    className="borders py-5 cursor-pointer"
+                    key={kate.id}
+                    value={kate.id}
+                  >
+                    {kate.name}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
               <label htmlFor="nama" className="block">
@@ -109,7 +151,7 @@ export default function ModalEdit({ setModal, data, setFetched, fetched }) {
                 name="nama"
                 onChange={handleOnchange}
                 type="text"
-                value={form.nama}
+                defaultValue={nama}
                 className="inputProduk"
               />
             </div>
@@ -121,7 +163,7 @@ export default function ModalEdit({ setModal, data, setFetched, fetched }) {
                 name="harga"
                 onChange={handleOnchange}
                 type="number"
-                value={form.harga}
+                defaultValue={harga}
                 className="inputProduk"
               />
             </div>
@@ -133,12 +175,12 @@ export default function ModalEdit({ setModal, data, setFetched, fetched }) {
                 name="stok"
                 onChange={handleOnchange}
                 type="number"
-                value={form.stok}
+                defaultValue={stok}
                 className="inputProduk"
               />
             </div>
             <div>
-              <label htmlFor="nama" className="block">
+              <label htmlFor="nama" className="block capitalize">
                 foto
               </label>
               <div className="flex gap-x-2 ">
@@ -149,10 +191,10 @@ export default function ModalEdit({ setModal, data, setFetched, fetched }) {
                     className="z-[10] absolute w-24  h-full opacity-0 cursor-pointer"
                   />
                   <div className=" relative  h-full w-full flex items-center justify-center">
-                    {form.foto ? (
+                    {foto ? (
                       <>
                         <img
-                          src={form.foto}
+                          src={foto}
                           className="absolute w-full h-full"
                           alt=""
                         />
@@ -169,17 +211,13 @@ export default function ModalEdit({ setModal, data, setFetched, fetched }) {
                     className="z-[10] absolute w-24  h-full opacity-0 cursor-pointer"
                   />
                   <div className=" relative  h-full w-full flex items-center justify-center">
-                    {form.foto2 ? (
-                      <>
-                        <img
-                          src={form.foto2}
-                          className="absolute w-full h-full"
-                          alt=""
-                        />
-                      </>
-                    ) : (
-                      <BsFileEarmarkImageFill size={40} />
-                    )}
+                    <>
+                      <img
+                        src={foto2}
+                        className="absolute w-full h-full"
+                        alt=""
+                      />
+                    </>
                   </div>
                 </div>
                 <div className="  w-24 h-24 border relative cursor-pointer">
@@ -189,10 +227,10 @@ export default function ModalEdit({ setModal, data, setFetched, fetched }) {
                     className="z-[10] absolute w-24  h-full opacity-0 cursor-pointer"
                   />
                   <div className=" relative  h-full w-full flex items-center justify-center">
-                    {form.foto3 ? (
+                    {foto3 !== "" ? (
                       <>
                         <img
-                          src={form.foto3}
+                          src={foto3}
                           className="absolute w-full h-full"
                           alt=""
                         />
@@ -217,21 +255,70 @@ export default function ModalEdit({ setModal, data, setFetched, fetched }) {
                 <textarea
                   type="text"
                   name="deskripsi"
-                  value={form.deskripsi}
+                  defaultValue={deskripsi}
                   onChange={handleOnchange}
                   className="outline-none border h-44 w-full rounded-lg"
                 />
               </div>
-              <label htmlFor="nama" className="block">
-                Status
-              </label>
-              <input
-                name="status"
-                onChange={handleOnchange}
-                type="checkbox"
-                defaultChecked={form.status}
-                className="inputProduk"
-              />
+              <div className="flex gap-x-1">
+                <label htmlFor="nama" className="block">
+                  Status
+                </label>
+                <input
+                  name="status"
+                  onChange={handleOnchange}
+                  type="checkbox"
+                  defaultChecked={status}
+                  className=""
+                />
+              </div>
+              <div className="">
+                <label htmlFor="nama" className="block">
+                  Ukuran
+                </label>
+                <div className="flex gap-x-2">
+                  <div className="flex gap-x-[2px]">
+                    S
+                    <input
+                      name="ukuran_S"
+                      onChange={handleOnchange}
+                      type="checkbox"
+                      defaultChecked={ukuran_S}
+                      className=""
+                    />
+                  </div>
+                  <div className="flex gap-x-[2px]">
+                    M
+                    <input
+                      name="ukuran_M"
+                      onChange={handleOnchange}
+                      type="checkbox"
+                      defaultChecked={ukuran_M}
+                      className=""
+                    />
+                  </div>
+                  <div className="flex gap-x-[2px]">
+                    L
+                    <input
+                      name="ukuran_L"
+                      onChange={handleOnchange}
+                      type="checkbox"
+                      defaultChecked={ukuran_L}
+                      className=""
+                    />
+                  </div>
+                  <div className="flex gap-x-[2px]">
+                    XL
+                    <input
+                      name="ukuran_XL"
+                      onChange={handleOnchange}
+                      type="checkbox"
+                      defaultChecked={ukuran_XL}
+                      className=""
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <button className="btn w-1/2 rounded-lg translinear py-2 text-lg mt-5 ">

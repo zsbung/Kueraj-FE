@@ -1,13 +1,13 @@
-import React, { useContext, useState } from "react";
-import { VscHeart, VscHeartFilled } from "react-icons/vsc";
+import { FormatRupiah } from "@arismun/format-rupiah";
+import React, { useContext } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { IoIosCart } from "react-icons/io";
-import { AnimatePresence, motion } from "framer-motion";
-import { MyContext } from "../../context/Context";
-import { FormatRupiah } from "@arismun/format-rupiah";
+import { VscHeartFilled } from "react-icons/vsc";
 import { Link } from "react-router-dom";
+import { MyContext } from "../../context/Context";
+import BtnCart from "../buttons/BtnMain";
 export default function CardRekomendasi({ id, produk }) {
-  const { setTrow, trowx, tambah } = useContext(MyContext);
+  const { tambah } = useContext(MyContext);
 
   return (
     <>
@@ -43,12 +43,11 @@ export default function CardRekomendasi({ id, produk }) {
               <AiFillStar />
               <AiFillStar />
             </div>
-            <button
+            <BtnCart
+              icon={<IoIosCart />}
               onClick={() => tambah(produk)}
-              className="lg:px-3 lg:py-2 py-1 px-1 lg:w-full w-1/2 border lg:text-[15px] text-[10px]  transition-all duration-200 ease-in-out flex justify-center items-center hover:font-semibold rounded-[2em] gap-x-[2px] lg:gap-x-1 hover:bg-primary hover:text-white active:scale-90"
-            >
-              <IoIosCart /> keranjang
-            </button>
+              text={"keranjang"}
+            />
           </div>
         </div>
       </>

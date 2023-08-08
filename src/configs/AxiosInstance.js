@@ -1,5 +1,6 @@
 import axios from "axios";
 import { CONSTANT } from "../utils/Constant";
+import Auth from "../utils/Auth";
 
 const axiosInstance = axios.create({
   baseURL: CONSTANT.BASEURL,
@@ -10,9 +11,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    config.headers[
-      "Authorization"
-    ] = `Bearer 17|Yp6uj2dG2Na7DWG4Cr3dPuFTLPbjcd0GFVNOAyNO`;
+    config.headers["Authorization"] = `Bearer ${Auth.getAccesToken()}`;
     return config;
   },
   (error) => {

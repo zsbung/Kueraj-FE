@@ -1,7 +1,7 @@
 import { FormatRupiah } from "@arismun/format-rupiah";
 import React from "react";
 
-export default function SideProduk() {
+export default function SideProduk({ setRating, rating, setDatas }) {
   const kategori = [
     {
       nama: "semua",
@@ -17,7 +17,7 @@ export default function SideProduk() {
     },
   ];
   return (
-    <div className="w-full ">
+    <div className="w-full  ">
       <div className="flex lg:flex-col gap-y-4  gap-x-5 lg:gap-x-0 justify-between      ">
         <div>
           <h1 className="text-[16px] capitalize    mb-2 font-semibold">
@@ -62,28 +62,89 @@ export default function SideProduk() {
         <div>
           <h1 className="text-[16px] capitalize  mb-2 font-semibold">Rating</h1>
           <ul className="flex flex-col gap-y-1   text-[14px]">
-            <li className="flex gap-x-3 cursor-pointer">
-              <input type="radio" name="star" id="5" />
+            <li
+              onClick={() => {
+                setDatas([]);
+                setRating(5);
+              }}
+              className="flex gap-x-3 cursor-pointer"
+            >
+              <input
+                type="radio"
+                name="star"
+                defaultChecked={rating === 5 && true}
+                id="5"
+              />
               <label className="cursor-pointer" htmlFor="5">
                 5 ⭐
               </label>
             </li>
-            <li className="flex gap-x-3 cursor-pointer">
-              <input type="radio" name="star" id="4" />
+            <li
+              onClick={() => {
+                setDatas([]);
+                setRating(4);
+              }}
+              className="flex gap-x-3 cursor-pointer"
+            >
+              <input
+                type="radio"
+                name="star"
+                defaultChecked={rating === 4 && true}
+                id="4"
+              />
               <label className="cursor-pointer" htmlFor="4">
                 4 ⭐
               </label>
             </li>
-            <li className="flex gap-x-3 cursor-pointer">
-              <input type="radio" name="star" id="3" />
+            <li
+              onClick={() => {
+                setDatas([]);
+                setRating(3);
+              }}
+              className="flex gap-x-3 cursor-pointer"
+            >
+              <input
+                type="radio"
+                name="star"
+                defaultChecked={rating === 3 && true}
+                id="3"
+              />
               <label className="cursor-pointer" htmlFor="3">
                 3 ⭐
               </label>
             </li>
-            <li className="flex gap-x-3 cursor-pointer">
-              <input type="radio" name="star" id="3" />
+            <li
+              onClick={() => {
+                setDatas([]);
+                setRating(2);
+              }}
+              className="flex gap-x-3 cursor-pointer"
+            >
+              <input
+                type="radio"
+                name="star"
+                defaultChecked={rating === 2 && true}
+                id="3"
+              />
               <label className="cursor-pointer" htmlFor="3">
                 2 ⭐
+              </label>
+            </li>
+            <li
+              onClick={() => {
+                setDatas([]);
+                setRating(1);
+              }}
+              className="flex gap-x-3 cursor-pointer"
+            >
+              <input
+                type="radio"
+                name="star"
+                defaultChecked={rating === 1 && true}
+                id="3"
+              />
+              <label className="cursor-pointer" htmlFor="3">
+                1 ⭐
               </label>
             </li>
           </ul>

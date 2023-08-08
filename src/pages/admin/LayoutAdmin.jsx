@@ -7,12 +7,12 @@ import HeaderAdmin from "../../components/header/HeaderAdmin";
 export default function LayoutAdmin() {
   return (
     <div className="flex  ">
-      <div className="w-[22%]  border h-screen sticky top-0 bg-base ">
+      <div className="w-[21%]  border ">
         <SideBar />
       </div>
-      <div className=" w-[78%] ">
+      <div className=" w-[79%] ">
         <HeaderAdmin />
-        <div className="min-h-screen mx-5 mt-6">
+        <div className=" px-5  pt-6">
           <Outlet />
         </div>
       </div>

@@ -64,6 +64,10 @@ export const nav = [
     path: "produk",
   },
   {
+    name: "Kategori",
+    path: "kategori",
+  },
+  {
     name: "About us",
     path: "about",
   },

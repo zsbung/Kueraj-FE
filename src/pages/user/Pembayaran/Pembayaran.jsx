@@ -1,22 +1,33 @@
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router-dom";
+import axiosInstance from "../../../configs/AxiosInstance";
 import GoToTop from "../../../helpers/GoToTop";
 import Barang from "./Barang";
 import Pemesan from "./Pemesan";
 import Ringkasan from "./Ringkasan";
+import moment from "moment";
 export default function Pembayaran() {
   const [check, setCheck] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  let navigate = useNavigate();
+  const { state } = useLocation();
   const [form, setForm] = useState({
     namaDepan: "",
     namaBelakang: "",
-    alamat: "",
+    nama: "kuze",
+    alamat: "tebo",
     kota: "",
-    kodePos: "",
-    email: "",
-    metode: "",
+    kodepos: "7261",
+    email: "agilz@gmail.com",
+    metode_pembayaran: "",
+    nohp: "0822121212",
+    provinsi: 1,
+    harga_ongkir: 5000,
+    nama_ongkir: "jne",
+    tanggal_pemesanan: moment().format("LL"),
   });
-
   const handleOnChange = (e) => {
     const { value, name } = e.target;
     setForm({
@@ -24,12 +35,57 @@ export default function Pembayaran() {
       [name]: value,
     });
   };
+  const [message, setMessage] = useState("");
   const handleOnclick = (e) => {
     e.preventDefault();
-    console.log(form);
+    const {
+      namaDepan,
+      namaBelakang,
+      nama,
+      alamat,
+      email,
+      kodepos,
+      kota,
+      metode_pembayaran,
+      provinsi,
+      nohp,
+      harga_ongkir,
+      tanggal_pemesanan,
+      nama_ongkir,
+    } = form;
+
+    axiosInstance
+      .post("pesan", {
+        nohp,
+        harga_ongkir,
+        nama_ongkir,
+        namaDepan,
+        namaBelakang,
+        nama,
+        alamat,
+        email,
+        tanggal_pemesanan,
+        kodepos,
+        kota,
+        metode_pembayaran,
+        provinsi,
+      })
+      .then((res) => {
+        console.log(res.data);
+        navigate("/");
+      })
+      .catch((err) => setMessage(err.response.data.message));
   };
+
+  useEffect(() => {
+    if (message !== "") {
+      toast.error(message);
+      setMessage("");
+    }
+  }, [message]);
   return (
     <>
+      <Toaster />
       <GoToTop />
       <motion.div
         initial={{ y: 15, opacity: 0.6 }}
@@ -44,8 +100,12 @@ export default function Pembayaran() {
         className="grid grid-cols-7 min-h-screen"
       >
         <div className=" col-span-7 lg:col-span-5 flex flex-col gap-y-5 lg:p-5 ">
-          <Barang />
-          <Pemesan handleOnChange={handleOnChange} />
+          <Barang data={state} />
+          <Pemesan
+            handleOnChange={handleOnChange}
+            setForm={setForm}
+            form={form}
+          />
         </div>
         <div className="col-span-7 lg:col-span-2   p-2 border relative rounded-lg ">
           <h1 className="font-bold mb-5 text-xl tracking-wider capitalize">
@@ -66,7 +126,7 @@ export default function Pembayaran() {
                 className="checked:bg-blue-700"
                 type="radio"
                 value={"gopay"}
-                name="metode"
+                name="metode_pembayaran"
                 id="gopay"
                 onChange={handleOnChange}
               />
@@ -83,7 +143,7 @@ export default function Pembayaran() {
               <input
                 onChange={handleOnChange}
                 type="radio"
-                name="metode"
+                name="metode_pembayaran"
                 value={"dana"}
                 id="dana"
               />
@@ -100,13 +160,19 @@ export default function Pembayaran() {
               <input
                 onChange={handleOnChange}
                 type="radio"
-                name="metode"
+                name="metode_pembayaran"
                 value={"bri"}
                 id="bri"
               />
             </label>
           </div>
-          <Ringkasan handleOnclick={handleOnclick} metode={form.metode} />
+
+          {/* <Ongkir handleOnclick={handleOnclick} /> */}
+          <Ringkasan
+            handleOnclick={handleOnclick}
+            total={state}
+            metode={form.metode}
+          />
         </div>
       </motion.div>
     </>

@@ -1,7 +1,5 @@
-import axios from "axios";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axiosInstance from "../configs/AxiosInstance";
 
 export default function Fetcher(url) {
   const [data, setDatas] = useState([]);
@@ -13,17 +11,16 @@ export default function Fetcher(url) {
     setFetched(true);
     if (url) {
       setLoading(true);
-      axios
+      axiosInstance
         .get(url)
         .then((res) => {
           setDatas(res.data);
-          setLoading(false);
         })
-        .catch((error) => setError(error.response.data.message))
+        .catch((error) => setError("gagal mendapatkan data..."))
         .finally(() => {
-          setFetched(false);
+          setLoading(false);
         });
     }
-  }, []);
-  return { fetched, error, loading, data };
+  }, [fetched]);
+  return { fetched, error, loading, data, setFetched };
 }

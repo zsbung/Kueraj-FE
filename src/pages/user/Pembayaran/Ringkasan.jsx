@@ -2,44 +2,50 @@ import { FormatRupiah } from "@arismun/format-rupiah";
 import React, { useState } from "react";
 import { useEffect } from "react";
 
-export default function Ringkasan({ metode, handleOnclick }) {
+export default function Ringkasan({ total, metode, handleOnclick }) {
   const [check, setCheck] = useState(false);
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (window.pageYOffset >= 150.3) {
-        setCheck(true);
-      } else {
-        setCheck(false);
-      }
-    });
-  });
+  // useEffect(() => {
+  //   window.addEventListener("scroll", () => {
+  //     if (window.pageYOffset >= 150.3) {
+  //       setCheck(true);
+  //     } else {
+  //       setCheck(false);
+  //     }
+  //   });
+  // });
+
   return (
     <div
-      className={`${
-        check && "lg:top-20  z-[999]"
-      } lg:p-2 p-3 border lg:sticky fixed bg-white lg:left-auto  bottom-0 left-0 lg:w-[325px] w-full    rounded-lg  transition-all duration-75 ease-in`}
+      className={`stick top-20 y lg:p-2 p-3 border lg:sticky  bg-white lg:left-auto  bottom-0 left-0 lg:w-[325px] w-full    rounded-lg  transition-all duration-75 ease-in`}
     >
       <p className="font-semibold mb-2 text-start  text-[18px] tracking-wider capitalize">
         Ringkasan
       </p>
       <div className=" text-[14px] font-medium">
-        <div className="flex  justify-between">
-          <p>Total Harga (10 barang) </p>
-          <p className="font-bold">
-            <FormatRupiah value={190000} />{" "}
-          </p>
-        </div>
+        <p className="flex  justify-between">
+          Total Harga (10 barang)
+          <span className="font-bold">
+            <FormatRupiah value={total.total} />{" "}
+          </span>
+        </p>
         {metode && (
-          <p>
+          <p className="flex justify-between">
             Pembayaran melalui : <span className="font-bold">{metode}</span>
           </p>
         )}
+        {/* <p className="flex justify-between">
+          Ongkir :{" "}
+          <span className="font-bold">
+            <FormatRupiah value={20000} />
+          </span>
+        </p> */}
       </div>
       <button
         onClick={handleOnclick}
+        type="submit"
         className="btn px-3 py-2 mt-5 rounded-lg text-white    w-full flex "
       >
-        Bayar sekarang{" "}
+        Bayar sekarang
       </button>
     </div>
   );

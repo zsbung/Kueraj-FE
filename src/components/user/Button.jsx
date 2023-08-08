@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Button({ handleOnlick, nama, style }) {
+export default function Button({ icon, handleOnlick, nama, style }) {
   return (
     <button
       onClick={handleOnlick}
@@ -13,6 +13,7 @@ export default function Button({ handleOnlick, nama, style }) {
     
     `}
     >
+      {icon && icon}
       {nama}
     </button>
   );

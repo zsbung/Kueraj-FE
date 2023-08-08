@@ -5,17 +5,34 @@ import {
   AiOutlineLock,
 } from "react-icons/ai";
 import { TfiPencilAlt } from "react-icons/tfi";
+import { CONSTANT } from "../../utils/Constant";
+import axios from "axios";
 
 export default function Form() {
-  const [password, setPassword] = useState(true);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const res = axios
+      .post(`${CONSTANT.BASEURL}register`, {
+        name,
+        email,
+        password,
+      })
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error.response.data.message));
+  };
   return (
-    <form action="" autoComplete="off">
+    <form onSubmit={handleSubmit} action="" autoComplete="off">
       <div className="flex  flex-col gap-y-5">
         <div className="relative group h-10 w-[20rem]">
           <input
             type="text"
             id="nama"
             placeholder="Nama"
+            onChange={(e) => setName(e.target.value)}
             className="formLogin peer transisi"
           />
           <label
@@ -34,6 +51,7 @@ export default function Form() {
             id="email"
             placeholder="Email"
             className="formLogin peer transisi"
+            onChange={(e) => setEmail(e.target.value)}
           />
           <label
             htmlFor="email"
@@ -51,6 +69,7 @@ export default function Form() {
             id="password"
             placeholder="Password"
             className="formLogin peer transisi"
+            onChange={(e) => setPassword(e.target.value)}
           />
           <label
             htmlFor="password"
@@ -65,7 +84,10 @@ export default function Form() {
             {password ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
           </div>
         </div>
-        <button className="w-full h-10 rounded-lg bg-primary text-white font-bold hover:bg-secondary transisi ">
+        <button
+          type="submit"
+          className="w-full h-10 rounded-lg bg-primary text-white font-bold hover:bg-secondary transisi "
+        >
           Daftar
         </button>
       </div>

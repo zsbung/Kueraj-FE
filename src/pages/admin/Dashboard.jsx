@@ -5,6 +5,8 @@ import hi from "../../assets/img/hi.png";
 import CardDashboard from "../../components/Card/CardDashboard";
 import Auth from "../../utils/Auth";
 import { motion } from "framer-motion";
+import Fetcher from "../../utils/Fetcher";
+import Skeleton from "../../components/loading/Skeleton";
 export default function Dashboard() {
   const cards = [
     {
@@ -25,6 +27,8 @@ export default function Dashboard() {
     },
   ];
 
+  const { data, loading, error } = Fetcher("dashboard");
+
   return (
     <>
       <div className="flex  justify-center  gap-x-2">
@@ -33,7 +37,7 @@ export default function Dashboard() {
             initial={{ opacity: 0, y: "-30%" }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            class="flex lg:w-[70%] items-center gap-x-2"
+            className="flex lg:w-[70%] items-center gap-x-2"
           >
             <div className="w-14 h-14 border rounded-full overflow-hidden">
               <img
@@ -43,11 +47,15 @@ export default function Dashboard() {
               />
             </div>
             <div>
-              <p className="text-2xl font-bold">Welcome, Muhammad Agil</p>
+              {loading ? (
+                <Skeleton style={`h-5 w-72 rounded-mg`} />
+              ) : (
+                <p className="text-2xl font-bold">Welcome, {data.me}</p>
+              )}
               <p className="text-md font-medium">Sign Out</p>
             </div>
           </motion.div>
-          <div class="flex lg:w-[30%] h-full items-center gap-x-2">
+          <div className="flex lg:w-[30%] h-full items-center gap-x-2">
             <img
               src={hi}
               alt="Picture of the author"
@@ -57,10 +65,22 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div class="flex flex-wrap justify-center gap-x-2 mt-4">
-        {cards.map((card, index) => (
-          <CardDashboard total={card.total} name={card.name} />
-        ))}
+      <div className="flex flex-wrap justify-center gap-x-2 mt-4">
+        {/* {data.map((card, index) => (
+          <CardDashboard key={index} total={card.total} name={card.name} />
+        ))} */}
+        {loading ? (
+          [1, 2, 3, 4].map((m) => (
+            <Skeleton key={m} style={`w-60 h-32 rounded-lg`} />
+          ))
+        ) : (
+          <>
+            <CardDashboard name={"pengguna"} total={data.pengguna} />
+            <CardDashboard name={"pendapatan"} total={data.pendapatan} />
+            <CardDashboard name={"pembeli"} total={data.pembeli} />
+            <CardDashboard name={"terjual"} total={data.terjual} />
+          </>
+        )}
       </div>
       <div className="mt-5">
         <p className="font-bold mb-2">

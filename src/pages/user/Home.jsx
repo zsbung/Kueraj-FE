@@ -11,6 +11,7 @@ import "swiper/css";
 import Rekomendasi from "./Home/Rekomendasi";
 import img from "../../assets/img/home.png";
 import WelcomeUser from "../../components/welcome/WelcomeUser";
+import LayoutAuth from "../../Auth/LayoutAuth";
 export default function Home() {
   const animation = {
     initial: {
@@ -45,7 +46,7 @@ export default function Home() {
         <Kategoris />
       </div>
 
-      <GoToTop />
+      {/* <GoToTop /> */}
     </>
   );
 }

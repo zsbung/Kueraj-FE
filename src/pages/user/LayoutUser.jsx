@@ -7,7 +7,7 @@ export default function Layout() {
   return (
     <div className=" font-poppins ">
       <Navbar />
-      <div className="py-20 content bg-base text-text   ">
+      <div className="content bg-base text-text   ">
         <Outlet />
       </div>
       <Footer />

@@ -1,34 +1,36 @@
-import React, { useState } from "react";
-import getDatas from "../../hooks/getDatas";
-import Get from "../../api/get.api";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { v4 } from "uuid";
-import { storage } from "../../configs/Firebase";
-import { useNavigate } from "react-router-dom";
-import POST from "../../api/post.api";
-import { BsFileEarmarkImageFill } from "react-icons/bs";
 import { motion } from "framer-motion";
-import Exit from "../Exit";
-export default function ModalTambahProduk({ setModal }) {
+import React, { useState } from "react";
+import { BsFileEarmarkImageFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import { v4 } from "uuid";
+import POST from "../../../api/post.api";
+import { storage } from "../../../configs/Firebase";
+import Fetcher from "../../../utils/Fetcher";
+import Exit from "../../Exit";
+export default function ModalTambahProduk({
+  setMessage,
+  setModal,
+  setFetched,
+}) {
   let navigate = useNavigate();
   const [form, setForm] = useState({
-    cate_id: 1,
+    kategori_id: 1,
     nama: "produk1",
     deskripsi: "deskripsi1",
     foto: "",
     foto2: "",
     foto3: "",
     harga: 10000,
-    status: true,
     stok: 5,
   });
-  const { data } = getDatas(Get.kategori);
+  const { data, loading, error } = Fetcher("kategori");
 
   const handleOnchange = (e) => {
     const { name, value, checked } = e.target;
     setForm({
       ...form,
-      [name]: name == "status" ? checked : value,
+      [name]: name == "status" ? checked : type == "checkbox" ? checked : value,
     });
   };
 
@@ -65,17 +67,22 @@ export default function ModalTambahProduk({ setModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    POST.addProduk(form).then((res) => setModal(false));
+    POST.addProduk(form).then((res) => {
+      setMessage(res.data.message);
+      setFetched(false);
+      setModal(false);
+    });
   };
   return (
     <>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3, ease: "easeIn" }}
-        className="w-full h-full flex justify-center items-center  fixed bg-black/10 backdrop-blur-sm z-[50] top-0 left-0"
-      >
-        <div className="bg-white p-5  h-[90%] w-[80%] rounded-lg relative">
+      <div className="w-full h-full flex justify-center items-center  fixed bg-black/10 backdrop-blur-sm z-[50] top-0 left-0">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          exit={{ scale: 0 }}
+          className="bg-white p-5  h-[90%] w-[80%] rounded-lg relative"
+        >
           <h1 className="text-center font-bold text-lg mb-2">Tambah Produk</h1>
           <button onClick={() => setModal(false)}>
             <Exit />
@@ -87,7 +94,7 @@ export default function ModalTambahProduk({ setModal }) {
         "
               >
                 <div>
-                  <label htmlFor="nama" className="block">
+                  <label htmlFor="nama" className="block capitalize">
                     Kategori
                   </label>
                   <select
@@ -95,7 +102,7 @@ export default function ModalTambahProduk({ setModal }) {
                     name="kategori"
                     id=""
                   >
-                    {data?.data?.data.map((kate) => (
+                    {data?.data?.map((kate) => (
                       <option
                         className="borders py-5 cursor-pointer"
                         key={kate.id}
@@ -107,7 +114,7 @@ export default function ModalTambahProduk({ setModal }) {
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="nama" className="block">
+                  <label htmlFor="nama" className="block capitalize">
                     Nama
                   </label>
                   <input
@@ -118,7 +125,7 @@ export default function ModalTambahProduk({ setModal }) {
                   />
                 </div>
                 <div>
-                  <label htmlFor="nama" className="block">
+                  <label htmlFor="nama" className="block capitalize">
                     harga
                   </label>
                   <input
@@ -129,7 +136,7 @@ export default function ModalTambahProduk({ setModal }) {
                   />
                 </div>
                 <div>
-                  <label htmlFor="nama" className="block">
+                  <label htmlFor="nama" className="block capitalize">
                     stok
                   </label>
                   <input
@@ -140,7 +147,7 @@ export default function ModalTambahProduk({ setModal }) {
                   />
                 </div>
                 <div>
-                  <label htmlFor="nama" className="block">
+                  <label htmlFor="nama" className="block capitalize">
                     foto
                   </label>
                   <div className="flex gap-x-2 ">
@@ -213,7 +220,7 @@ export default function ModalTambahProduk({ setModal }) {
               >
                 <div>
                   <div>
-                    <label htmlFor="nama" className="block">
+                    <label htmlFor="nama" className="block capitalize">
                       Deskripsi
                     </label>
                     <textarea
@@ -224,7 +231,7 @@ export default function ModalTambahProduk({ setModal }) {
                     />
                   </div>
                   <div className="flex items-center gap-x-3  ">
-                    <label htmlFor="nama" className="block">
+                    <label htmlFor="nama" className="block capitalize">
                       Status
                     </label>
                     <input
@@ -241,8 +248,8 @@ export default function ModalTambahProduk({ setModal }) {
               Tambah
             </button>
           </form>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </>
   );
 }
