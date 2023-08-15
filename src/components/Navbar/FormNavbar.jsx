@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { motion } from "framer-motion";
-export default function FormNavbar({ setForm, form, search, setSearch }) {
-  const reff = useRef();
-
+import { useNavigate } from "react-router-dom";
+export default function FormNavbar({ search, setSearch }) {
+  const [form, setForm] = useState("");
+  let navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    navigate(`/produk`, { state: form });
     setSearch(false);
   };
 
@@ -38,7 +39,6 @@ export default function FormNavbar({ setForm, form, search, setSearch }) {
         onClick={() => setForm("")}
         value={form}
         placeholder="Cari produk..."
-        ref={reff}
         className={` h-10 ${
           search
             ? "w-full border"

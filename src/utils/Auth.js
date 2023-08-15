@@ -11,6 +11,11 @@ const Auth = {
   getRoleAs() {
     return Cookies.get("role");
   },
+  signOut(navigate) {
+    navigate("/");
+    Cookies.remove("token");
+    Cookies.remove("role");
+  },
 
   storeInfoCookie(data) {
     if (!data) return null;

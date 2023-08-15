@@ -8,9 +8,17 @@ import { MyContext } from "../../context/Context";
 import BtnCart from "../buttons/BtnMain";
 import { FaStar } from "react-icons/fa";
 import { Toaster, toast } from "react-hot-toast";
+import Auth from "../../utils/Auth";
 export default function CardProduk({ produk }) {
   const { tambah } = useContext(MyContext);
-
+  const handleKeranjang = (e, produk) => {
+    e.preventDefault();
+    if (Auth.isAuthorization()) {
+      tambah(produk, 1);
+    } else {
+      toast.error("login terlebih dahulu");
+    }
+  };
   return (
     <>
       <Toaster />
@@ -61,7 +69,7 @@ export default function CardProduk({ produk }) {
 
           <BtnCart
             icon={<IoIosCart />}
-            onClick={() => tambah(produk, 1)}
+            onClick={(e) => handleKeranjang(e, produk)}
             text={"keranjang"}
           />
         </div>

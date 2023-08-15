@@ -2,7 +2,7 @@ import { AnimatePresence, easeInOut } from "framer-motion";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import bg from "../assets/bg.svg";
-import foto from "../assets/img/bag.png";
+import fotoLogin from "../assets/img/login.png";
 import bag1 from "../assets/img/bag1.png";
 import Register from "./Register/Register";
 import Login from "./login/Login";
@@ -33,8 +33,8 @@ export default function LayoutAuth() {
       style={{ backgroundImage: `url(${bg})` }}
     >
       <div className="flex relative  w-full h-full lg:bg-base rounded-xl overflow-hidden   text-black text-md">
-        <div className=" w-1/2 hidden relative bg-primary   items-start p-5 lg:flex ">
-          <div>LOGO</div>
+        <div className=" w-1/2 hidden relative  bg-primary  justify-center items-center  lg:flex ">
+          <img className="h-[90%]" src={fotoLogin} alt="" />
           {/* <h1 className="text-4xl font-semibold p-2  border-2  border-solid rounded-xl border-base">
             Bunga Busana
           </h1> */}

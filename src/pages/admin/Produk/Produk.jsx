@@ -11,6 +11,7 @@ import ModalEditProduk from "../../../components/modals/produk/ModalEditProduk";
 import ModalTambahProduk from "../../../components/modals/produk/ModalTambahProduk";
 import ModalHapus from "../../../components/ModalHapus";
 import { Toaster, toast } from "react-hot-toast";
+import GoToTop from "../../../helpers/GoToTop";
 export default function Produk() {
   const [show, setShow] = useState({
     modalEdit: false,
@@ -62,6 +63,7 @@ export default function Produk() {
         />
       )}
       <Toaster />
+      <GoToTop />
       {error && error}
       <div className="flex justify-between w-full mb-4">
         <div>

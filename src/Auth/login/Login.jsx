@@ -14,10 +14,7 @@ export default function Login({ transition, setLogin }) {
       className="lg:w-1/2 w-full gap-y-4 flex flex-col lg:px-28 lg:py-10 justify-center items-center"
     >
       <h1 className="text-4xl font-semibold tracking-widest">Login!</h1>
-      <p className="text-gray-500  text-center text-sm">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
-        asperiores, consectetur accusantium harum ab eligendi?
-      </p>
+
       <Form />
       <div className="rounded-lg cursor-pointer hover:shadow-lg translinear w-[20rem] h-10 border bg-white flex justify-center items-center gap-x-2">
         <FcGoogle /> Sign in with Google

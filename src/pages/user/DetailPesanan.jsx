@@ -49,7 +49,7 @@ export default function DetailPesanan() {
       <div className="min-h-screen">
         <h1 className="titles text-center my-5">Detail Pesanan</h1>
         <div className="flex gap-x-3 justify-center w-full">
-          <div className="w-[40%] grid grid-cols-2 gap-y-2 gap-x-2">
+          <div className="w-[40%] grid grid-cols-2 gap-y-3 place-content-start gap-x-2">
             <div className="">
               <label className="font-medium block" htmlFor="">
                 Email
@@ -175,7 +175,7 @@ export default function DetailPesanan() {
               <input
                 className="border px-1 py-1  rounded-lg w-full"
                 disabled
-                defaultValue={status_pembayaran == 1 ? "berhasil" : "gagal"}
+                defaultValue={status_pembayaran}
                 type="text"
                 name=""
                 id=""
@@ -196,11 +196,7 @@ export default function DetailPesanan() {
               ? data?.data?.map((m) => (
                   <div key={m.id} className="border flex justify-between">
                     <div className="flex gap-x-2 ">
-                      <img
-                        className="h-[6rem]  "
-                        src="https://down-id.img.susercontent.com/file/sg-11134201-7qvet-lgeiyds0rqs626_tn"
-                        alt=""
-                      />
+                      <img className="h-[6rem]  " src={m.produk.foto} alt="" />
                       <div className="flex flex-col">
                         <h1 className="font-semibold text-md">
                           {m.produk.nama}

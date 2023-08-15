@@ -6,21 +6,14 @@ import Button from "../../../components/user/Button";
 import GoToTop from "../../../helpers/GoToTop";
 import KategoriProduk from "./KategoriProduk";
 import { CONSTANT } from "../../../utils/Constant";
-export default function Produk({
-  setSkip,
-  setKategori,
-  data,
-  handleGetData,
-  setDatas,
-  handleReset,
-  loading,
-}) {
+import { useLocation } from "react-router-dom";
+export default function Produk({ data, loading }) {
   return (
     <>
       <GoToTop />
 
       <div className=" grid grid-cols-2 lg:grid-cols-4 mt-5 lg:gap-x-1   w-full gap-x-3  place-items-center   gap-y-5 ">
-        {!data || loading
+        {loading || !data
           ? [1, 2, 3, 4, 5, 6, 7, 8].map((m) => (
               <Skeleton
                 key={m}
@@ -33,7 +26,7 @@ export default function Produk({
       </div>
 
       <div className="flex justify-center w-full mt-5">
-        {data && data.length >= 12 ? (
+        {/* {data && data.length >= 12 ? (
           <Button
             handleOnlick={handleGetData}
             nama={"Lebih Banyak"}
@@ -43,7 +36,7 @@ export default function Produk({
           "tidak ada produk"
         ) : (
           ""
-        )}
+        )} */}
       </div>
     </>
   );

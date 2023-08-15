@@ -97,11 +97,7 @@ export default function ModalTambahKategoriEdit({
               <div className="   h-full w-full  flex items-center justify-center">
                 {form.image ? (
                   <>
-                    <img
-                      src={form.image}
-                      className="absolute w-full h-full"
-                      alt=""
-                    />
+                    <img src={form.image} className=" w-full h-full" alt="" />
                   </>
                 ) : (
                   <BsFileEarmarkImageFill size={70} />

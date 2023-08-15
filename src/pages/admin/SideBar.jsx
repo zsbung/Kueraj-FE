@@ -30,26 +30,30 @@ export default function SideBar() {
       path: "produk",
       icon: <BsFillLayersFill />,
     },
-    {
-      nama: "Admin",
-      path: "/admin",
-      icon: <FaUsers />,
-    },
 
     {
       nama: "Penjualan",
       path: "penjualan",
       icon: <AiFillShopping />,
     },
+    {
+      nama: "Pengguna",
+      path: "/admin",
+      icon: <FaUsers />,
+    },
   ];
+
   return (
     <div className="bg-[#F3F5F7] h-screen  sticky top-0  ">
       <div className=" py-2 mb-5 h-16 items-center flex justify-center w-full ">
-        <p className="bg-gradient-to-r tracking-wider text-2xl from-black to-primary bg-clip-text text-transparent font-bold text-center">
+        <Link
+          to={"/"}
+          className="bg-gradient-to-r tracking-wider text-2xl from-black to-primary bg-clip-text text-transparent font-bold text-center"
+        >
           BungaBusana
-        </p>
+        </Link>
       </div>
-      <div className="flex flex-col gap-y-4 px-5 border-r  h-screen ">
+      <div className="flex flex-col gap-y-4 px-5 border-r ">
         <div>
           <ul className="flex flex-col gap-y-2">
             {sidebar.map((side, index) => (

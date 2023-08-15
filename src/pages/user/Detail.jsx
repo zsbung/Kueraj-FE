@@ -157,21 +157,24 @@ export default function Detail() {
                 <button
                   disabled={count == 1 && true}
                   onClick={() => setCount((count) => count >= 1 && count - 1)}
-                  className=" w-[30%] active:scale-75 text-[20px] grid place-content-center"
+                  className=" w-[30%] active:scale-75 h-full text-[20px] grid place-content-center"
                 >
                   -
                 </button>
-
-                <input
+                <span className="outline-none w-[40%] h-[80%] text-center bg-base text-text flex justify-center items-center">
+                  {count}
+                </span>
+                {/* <input
                   type="text"
                   name="jml"
-                  onChange={() => console.log("kontol")}
+                  value={count}
+                  onChange={(e) => setCount(e.target.value)}
                   className="outline-none w-[40%] h-[80%] text-center bg-base text-text flex justify-center items-center"
-                />
+                /> */}
                 <button
                   disabled={count == 10 && true}
                   onClick={() => setCount((count) => count <= 10 && count + 1)}
-                  className=" w-[30%] active:scale-75 text-[20px] grid place-content-center"
+                  className=" w-[30%] h-full active:scale-75  text-[20px] grid place-content-center"
                 >
                   +
                 </button>
@@ -192,7 +195,7 @@ export default function Detail() {
                 Beli
               </button>
               <button
-                onClick={() => tambah(produk, count)}
+                onClick={() => tambah(produk.produk, count)}
                 className="btn2 lg:w-44 w-1/2 py-2 lg:py-3 tracking-wider   text-cbtn rounded-xl gap-x-1"
               >
                 <IoIosCart /> keranjang

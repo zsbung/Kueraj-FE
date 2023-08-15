@@ -67,7 +67,7 @@ export default function KategoriAdmin() {
 
       {loading && <LoadingTable />}
       {!loading && (
-        <table className="table-auto w-full font-medium   border-collapse ">
+        <table className="table-auto w-full font-medium    border-collapse ">
           <thead className="border">
             <tr className="bg-gray-200 capitalize border ">
               <th className=" px-2 py-2 text-center">No</th>
@@ -78,9 +78,9 @@ export default function KategoriAdmin() {
           </thead>
           <tbody>
             {data &&
-              data.data?.map((kategori) => (
+              data.data?.map((kategori, index) => (
                 <tr key={kategori.id} className="border">
-                  <td className=" text-center">1</td>
+                  <td className=" text-center">{++index}</td>
 
                   <td className=" text-center">{kategori.name}</td>
                   <td className="flex py-1 justify-center items-center">

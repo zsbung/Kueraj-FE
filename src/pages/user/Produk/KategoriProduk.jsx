@@ -26,7 +26,7 @@ export default function KategoriProduk({ handleGetKategori, handleReset }) {
             onClick={handleReset}
             className="px-3 py-1 rounded-lg hover:bg-primary cursor-pointer hover:text-white hover:font-semibold transition-all duration-100 ease-out border"
           >
-            <span>Semua</span>
+            <span>Reset Filter</span>
           </li>
           {kategori && !loading ? (
             kategori?.data?.map((m, index) => (

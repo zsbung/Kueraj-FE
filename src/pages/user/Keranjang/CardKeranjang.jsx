@@ -42,7 +42,8 @@ export default function CardKeranjang({ cart, setFetched }) {
             <img className="h-[5rem]" src={cart.produk.foto} alt="" />
           </div>
           <div className="lg:col-span-6 order-3  lg:order-none col-span-12 text-[14px] lg:text-[18px]  grid place-content-cente">
-            <p className="font-semibold">{cart.produk.nama}.</p>
+            <p className="font-semibold">{cart.produk.nama}</p>
+            <p className="text-sm">Jumlah : {cart.jml_produk}</p>
             <p className="text-[15px]">
               <FormatRupiah value={cart.produk.harga * cart.jml_produk} />{" "}
             </p>

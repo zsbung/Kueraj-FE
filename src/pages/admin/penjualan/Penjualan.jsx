@@ -39,9 +39,7 @@ export default function Penjualan() {
                   <td className=" text-center">
                     <FormatRupiah value={pemesan.harga_pesanan} />
                   </td>
-                  <td className=" text-center">
-                    {pemesan.status_pembayaran == 1 ? "lunas" : "belum bayar"}
-                  </td>
+                  <td className=" text-center">{pemesan.status_pembayaran}</td>
                   <td className=" text-center capitalize">
                     {pemesan.metode_pembayaran}
                   </td>

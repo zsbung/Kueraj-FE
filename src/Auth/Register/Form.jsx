@@ -12,7 +12,8 @@ export default function Form() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [showPassword, setShowPassword] = useState(true);
+  const [login, setLogin] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     const res = axios
@@ -25,70 +26,82 @@ export default function Form() {
       .catch((error) => console.log(error.response.data.message));
   };
   return (
-    <form onSubmit={handleSubmit} action="" autoComplete="off">
-      <div className="flex  flex-col gap-y-5">
-        <div className="relative group h-10 w-[20rem]">
+    <form action="" onSubmit={handleSubmit} autoComplete="off">
+      <div className="flex  flex-col gap-y-7">
+        <div className="relative group">
           <input
             type="text"
-            id="nama"
-            placeholder="Nama"
+            id="input"
+            className="border-b-2 peer  transition-all duration-200 ease-in-out outline-none border-gray-300  py-2 w-full"
+            value={name}
             onChange={(e) => setName(e.target.value)}
-            className="formLogin peer transisi"
           />
           <label
-            htmlFor="nama"
-            className="absolute tracking-wide opacity-0 peer-focus:opacity-100 peer-focus:-top-[1px] peer-focus:bg-white top-1/2 -translate-y-1/2 cursor-text text-lg text-gray-500  capitalize peer-focus:text-primary peer-focus:scale-90 transisi"
+            htmlFor="input"
+            className={`absolute  left-0 peer-focus:top-0 py-[1px]   -translate-y-1/2  text-gray-500 text-md transition-all transform origin-left pointer-events-none ${
+              name ? "top-0 -translate-y-1/2  e" : "top-1/2"
+            }`}
           >
-            nama
+            Name
           </label>
-          <div className="absolute text-xl pr-2 text-gray-500 right-0 top-1/2 peer-focus:text-primary -translate-y-1/2 transisi">
-            <TfiPencilAlt />
-          </div>
         </div>
-        <div className="relative group h-10 w-[20rem]">
+        <div className="relative group">
           <input
             type="text"
-            id="email"
-            placeholder="Email"
-            className="formLogin peer transisi"
+            id="input"
+            className="border-b-2 peer  transition-all duration-200 ease-in-out outline-none border-gray-300  py-2 w-full"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <label
-            htmlFor="email"
-            className="absolute tracking-wide opacity-0 peer-focus:opacity-100 peer-focus:-top-[1px] peer-focus:bg-white top-1/2 -translate-y-1/2 cursor-text text-lg text-gray-500  capitalize peer-focus:text-primary peer-focus:scale-90 transisi"
+            htmlFor="input"
+            className={`absolute  left-0 peer-focus:top-0 py-[1px]   -translate-y-1/2  text-gray-500 text-md transition-all transform origin-left pointer-events-none ${
+              email ? "top-0 -translate-y-1/2  e" : "top-1/2"
+            }`}
           >
-            email
+            Email
           </label>
-          <div className="absolute text-xl pr-2 text-gray-500 right-0 top-1/2 peer-focus:text-primary -translate-y-1/2 transisi">
-            @
-          </div>
         </div>
         <div className="relative group h-10 w-[20rem]">
           <input
-            type={`${password ? "password" : "text"}`}
+            type={`${showPassword ? "password" : "text"}`}
             id="password"
-            placeholder="Password"
-            className="formLogin peer transisi"
+            className="border-b-2 peer  transition-all duration-200 ease-in-out outline-none border-gray-300  py-2 w-full"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <label
             htmlFor="password"
-            className="absolute tracking-wide opacity-0 peer-focus:opacity-100 peer-focus:-top-[1px] peer-focus:bg-white top-1/2 -translate-y-1/2 cursor-text text-lg text-gray-500  capitalize peer-focus:text-primary peer-focus:scale-90 transisi"
+            className={`absolute  left-0 peer-focus:top-0 py-[1px]   -translate-y-1/2  text-gray-500 text-md transition-all transform origin-left pointer-events-none ${
+              password ? "top-0 -translate-y-1/2  e" : "top-1/2"
+            }`}
           >
-            password
+            Password
           </label>
           <div
-            onClick={() => setPassword(!password)}
+            onClick={() => setShowPassword(!showPassword)}
             className="absolute cursor-pointer text-xl pr-2 text-gray-500 right-0 top-1/2 peer-focus:text-primary -translate-y-1/2 transisi"
           >
-            {password ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+            {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
           </div>
+          {/* <span className="absolute -bottom-[20px] font-semibold italic left-2 text-[13px] text-red-500">
+            email error
+          </span> */}
         </div>
-        <button
-          type="submit"
-          className="w-full h-10 rounded-lg bg-primary text-white font-bold hover:bg-secondary transisi "
-        >
-          Daftar
+        <button className="w-full h-10 rounded-lg bg-primary flex justify-center items-center text-white font-bold hover:bg-secondary transisi ">
+          {!login ? (
+            "login"
+          ) : (
+            <motion.span
+              animate={{ rotate: 180 }}
+              transition={{
+                repeat: Infinity,
+                duration: 0.15,
+              }}
+            >
+              <ImSpinner9 />
+            </motion.span>
+          )}
         </button>
       </div>
     </form>

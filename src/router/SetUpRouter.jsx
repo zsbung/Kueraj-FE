@@ -38,7 +38,7 @@ export default function SetUpRouter() {
         <Route path="keranjang" element={<Keranjang />} />
         <Route path="kategori" element={<Kategori />} />
         <Route path="pembayaran" element={<Pembayaran />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/tentang" element={<About />} />
         <Route path="/riwayat" element={<History />} />
         <Route path="/detail-pesanan/:id" element={<DetailPesanan />} />
       </Route>

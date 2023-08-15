@@ -13,7 +13,7 @@ export default function History() {
   // }, []);
   let navigate = useNavigate();
   const { data, loading, error } = Fetcher("history");
-
+  console.log(data);
   return (
     <>
       <div className="min-h-screen">
@@ -64,25 +64,31 @@ export default function History() {
                 </>
               ) : (
                 data?.data?.map((m) => (
-                  <tr key={m.id} className="border">
-                    <td className=" text-center">{m?.tanggal_pemesanan}</td>
-                    <td className=" text-center">{m.nama}</td>
-                    <td className=" text-center">
-                      {m.status_pembayaran == 1 ? "berhasil" : "gagal"}
+                  <tr key={m.id} className="border ">
+                    <td className="text-center">
+                      {m?.transaksi.tanggal_pemesanan}
                     </td>
-                    <td className=" text-center">BRI</td>
+                    <td className=" text-center">
+                      {m.nama_depan} {m.nama_belakang}
+                    </td>
+                    <td className=" text-center capitalize">
+                      {m.transaksi.status_pembayaran}
+                    </td>
+                    <td className=" text-center">
+                      {m?.transaksi.metode_pembayaran}
+                    </td>
                     <td className=" text-center">
                       {m.status_pemesanan == 1 ? "terkirim" : "gagal"}
                     </td>
                     <td className=" text-center">
-                      <FormatRupiah value={m.harga_pesanan} />
+                      <FormatRupiah value={m.transaksi.harga_pesanan} />
                     </td>
-                    <td className=" text-center flex justify-center">
+                    <td className="  h-full  flex flex-col justify-center px-1 py-2">
                       <button
                         onClick={() =>
                           navigate(`/detail-pesanan/${m.id}`, { state: m })
                         }
-                        className="btn py-1 px-2  rounded-md"
+                        className=" py-1 px-2 btn rounded-md  h-full"
                       >
                         Lihat
                       </button>

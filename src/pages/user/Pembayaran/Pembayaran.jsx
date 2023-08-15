@@ -14,18 +14,13 @@ export default function Pembayaran() {
   let navigate = useNavigate();
   const { state } = useLocation();
   const [form, setForm] = useState({
-    namaDepan: "",
-    namaBelakang: "",
-    nama: "kuze",
-    alamat: "tebo",
+    alamat: "",
     kota: "",
-    kodepos: "7261",
-    email: "agilz@gmail.com",
+    nama_depan: "",
+    nama_belakang: "",
     metode_pembayaran: "",
     nohp: "0822121212",
     provinsi: 1,
-    harga_ongkir: 5000,
-    nama_ongkir: "jne",
     tanggal_pemesanan: moment().format("LL"),
   });
   const handleOnChange = (e) => {
@@ -36,17 +31,20 @@ export default function Pembayaran() {
     });
   };
   const [message, setMessage] = useState("");
+  // const handleOnclick = (e) => {
+  //   e.preventDefault();
+  //   console.log(form);
+  // };
   const handleOnclick = (e) => {
     e.preventDefault();
     const {
-      namaDepan,
-      namaBelakang,
+      nama_depan,
+      nama_belakang,
       nama,
       alamat,
       email,
       kodepos,
       kota,
-      metode_pembayaran,
       provinsi,
       nohp,
       harga_ongkir,
@@ -55,26 +53,35 @@ export default function Pembayaran() {
     } = form;
 
     axiosInstance
-      .post("pesan", {
+      .post("beli", {
         nohp,
         harga_ongkir,
         nama_ongkir,
-        namaDepan,
-        namaBelakang,
+        nama_depan,
+        nama_belakang,
         nama,
         alamat,
         email,
         tanggal_pemesanan,
         kodepos,
         kota,
-        metode_pembayaran,
         provinsi,
       })
       .then((res) => {
-        console.log(res.data);
-        navigate("/");
+        // console.log(res.data);
+        const screenWidth = window.screen.width;
+        const screenHeight = window.screen.height;
+        const windowWidth = 400; // Desired window width
+        const windowHeight = 550; // Desired window height
+        const left = (screenWidth - windowWidth) / 2;
+        const top = (screenHeight - windowHeight) / 2;
+        window.open(
+          `${res.data.redirect_url}`,
+          null,
+          `width=${windowWidth},height=${windowHeight},left=${left},top=${top}`
+        );
       })
-      .catch((err) => setMessage(err.response.data.message));
+      .catch((err) => toast.error(err.response.data.message));
   };
 
   useEffect(() => {
@@ -108,10 +115,10 @@ export default function Pembayaran() {
           />
         </div>
         <div className="col-span-7 lg:col-span-2   p-2 border relative rounded-lg ">
-          <h1 className="font-bold mb-5 text-xl tracking-wider capitalize">
+          {/* <h1 className="font-bold mb-5 text-xl tracking-wider capitalize">
             Pilih pembayaran
-          </h1>
-          <div className="flex items-start flex-col gap-y-3 mb-40 lg:mb-5 ">
+          </h1> */}
+          {/* <div className="flex items-start flex-col gap-y-3 mb-40 lg:mb-5 ">
             <label
               htmlFor="gopay"
               className="capitalize flex flex-row-reverse cursor-pointer items-center gap-x-2   lg:text-[20px]"
@@ -165,9 +172,8 @@ export default function Pembayaran() {
                 id="bri"
               />
             </label>
-          </div>
+          </div> */}
 
-          {/* <Ongkir handleOnclick={handleOnclick} /> */}
           <Ringkasan
             handleOnclick={handleOnclick}
             total={state}

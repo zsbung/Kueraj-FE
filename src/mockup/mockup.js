@@ -68,8 +68,8 @@ export const nav = [
     path: "kategori",
   },
   {
-    name: "About us",
-    path: "about",
+    name: "Tentang",
+    path: "tentang",
   },
 ];
 

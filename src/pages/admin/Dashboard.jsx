@@ -1,12 +1,18 @@
 import { FormatRupiah } from "@arismun/format-rupiah";
 import React from "react";
-import { FaUserFriends } from "react-icons/fa";
+import {
+  FaMoneyCheckAlt,
+  FaUserAlt,
+  FaUserFriends,
+  FaUserTag,
+} from "react-icons/fa";
 import hi from "../../assets/img/hi.png";
 import CardDashboard from "../../components/Card/CardDashboard";
 import Auth from "../../utils/Auth";
 import { motion } from "framer-motion";
 import Fetcher from "../../utils/Fetcher";
 import Skeleton from "../../components/loading/Skeleton";
+import { MdSell } from "react-icons/md";
 export default function Dashboard() {
   const cards = [
     {
@@ -26,6 +32,64 @@ export default function Dashboard() {
       total: <FormatRupiah value={1000000} />,
     },
   ];
+  const mockupData = [
+    {
+      name: "T-Shirt",
+      total: 8,
+      foto: "tshirt.jpg",
+      kategori: "Clothing",
+      harga: 150000,
+      jumlah: 50,
+    },
+    {
+      name: "Jeans",
+      total: 5,
+      foto: "jeans.jpg",
+      kategori: "Clothing",
+      harga: 40000,
+      jumlah: 30,
+    },
+    {
+      name: "Dress",
+      total: 12,
+      foto: "dress.jpg",
+      kategori: "Clothing",
+      harga: 50900,
+      jumlah: 20,
+    },
+    {
+      name: "Sweater",
+      total: 7,
+      foto: "sweater.jpg",
+      kategori: "Clothing",
+      harga: 350000,
+      jumlah: 25,
+    },
+    {
+      name: "Jacket",
+      total: 4,
+      foto: "jacket.jpg",
+      kategori: "Clothing",
+      harga: 60000,
+      jumlah: 15,
+    },
+    {
+      name: "Shorts",
+      total: 9,
+      foto: "shorts.jpg",
+      kategori: "Clothing",
+      harga: 25,
+      jumlah: 40,
+    },
+    {
+      name: "Skirt",
+      total: 6,
+      foto: "skirt.jpg",
+      kategori: "Clothing",
+      harga: 150000,
+      jumlah: 18,
+    },
+  ];
 
   const { data, loading, error } = Fetcher("dashboard");
 
@@ -42,7 +106,7 @@ export default function Dashboard() {
             <div className="w-14 h-14 border rounded-full overflow-hidden">
               <img
                 className="h-full w-full"
-                src="https://images.unsplash.com/photo-1584999734482-0361aecad844?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80"
+                src="https://img.freepik.com/premium-vector/anime-cartoon-character-vector-illustration_648489-34.jpg?w=740"
                 alt=""
               />
             </div>
@@ -75,10 +139,30 @@ export default function Dashboard() {
           ))
         ) : (
           <>
-            <CardDashboard name={"pengguna"} total={data.pengguna} />
+            <CardDashboard
+              icon={<FaUserAlt size={25} />}
+              name={"pengguna"}
+              total={12}
+            />
+            <CardDashboard
+              icon={<FaMoneyCheckAlt size={25} />}
+              name={"pendapatan"}
+              total={1350000}
+            />
+            <CardDashboard
+              icon={<FaUserTag size={25} />}
+              name={"pembeli"}
+              total={12}
+            />
+            <CardDashboard
+              icon={<MdSell size={25} />}
+              name={"terjual"}
+              total={80}
+            />
+            {/* <CardDashboard name={"pengguna"} total={data.pengguna} />
             <CardDashboard name={"pendapatan"} total={data.pendapatan} />
             <CardDashboard name={"pembeli"} total={data.pembeli} />
-            <CardDashboard name={"terjual"} total={data.terjual} />
+            <CardDashboard name={"terjual"} total={data.terjual} /> */}
           </>
         )}
       </div>
@@ -90,7 +174,6 @@ export default function Dashboard() {
           <thead className="">
             <tr className="bg-gray-200  ">
               <th className=" px-2 py-2 text-center">No</th>
-              <th className=" px-2 py-2 text-center">Produk</th>
               <th className=" px-2 py-2 text-center">Nama</th>
               <th className=" px-2 py-2 text-center">Kategori</th>
               <th className=" px-2 py-2 text-center">Harga</th>
@@ -98,20 +181,21 @@ export default function Dashboard() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="border px-2 py-2 text-center">1</td>
-              <td className="border px-2 py-2 text-center">foto</td>
-              <td className="border px-2 py-2 text-center">produk1</td>
-              <td className="border px-2 py-2 text-center">kemeja</td>
-              <td className="border px-2 py-2 text-center">
-                <FormatRupiah value={20000} />
-              </td>
-              <td className="border px-2 py-2 flex justify-center ">
-                <p className="py-1 px-5 font-bold  text-primary text-center rounded-lg bg-primary/20 ">
-                  10
-                </p>
-              </td>
-            </tr>
+            {mockupData.map((m, index) => (
+              <tr className="text-left" key={index}>
+                <td className="border px-2 py-2 text-center">{++index}</td>
+                <td className="border px-2 w-72 py-2 ">{m.name}</td>
+                <td className="border px-2 py-2 ">{m.kategori}</td>
+                <td className="border px-2 py-2 ">
+                  <FormatRupiah value={m.harga} />
+                </td>
+                <td className="border px-2 py-2 flex justify-center ">
+                  <p className="py-1 px-5 font-bold  text-primary text-center rounded-lg bg-primary/20 ">
+                    {m.jumlah}
+                  </p>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

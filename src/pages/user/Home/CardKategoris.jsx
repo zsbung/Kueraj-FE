@@ -4,9 +4,6 @@ import { motion } from "framer-motion";
 export default function CardKategoris() {
   return (
     <motion.div
-      //   initial={{ scale: 0.9, opacity: 0.8 }}
-      //   whileInView={{ scale: 1, opacity: 1 }}
-      //   viewport={{ once: true }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
       className="lg:w-[14em] w-[10rem] h-[14rem]  lg:h-[16rem] relative group cursor-pointer hover:scale-95 ransition-all duration-200 ease-in-out overflow-hidden hover:contrast-150    flex justify-center rounded-lg  bg-cover bg-center "
     >

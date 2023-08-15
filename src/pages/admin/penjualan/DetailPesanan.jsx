@@ -26,7 +26,7 @@ export default function DetailPesananAdmin() {
   return (
     <>
       <div className="flex w-full gap-x-5">
-        <div className="w-[40%] grid grid-cols-2 gap-y-2 gap-x-2">
+        <div className="w-[40%] grid grid-cols-2 place-content-start gap-3">
           <div className="">
             <label className="font-medium block" htmlFor="">
               Email
@@ -70,14 +70,9 @@ export default function DetailPesananAdmin() {
             <label className="font-medium block" htmlFor="">
               Status Pemesanan
             </label>
-            <input
-              className="border px-1 py-1  rounded-lg w-full"
-              disabled
-              defaultValue={status_pemesanan}
-              type="text"
-              name=""
-              id=""
-            />
+            <p className="border px-1 py-1  rounded-lg w-full">
+              {status_pemesanan == 1 ? "Terkirim" : "pending"}
+            </p>
           </div>
           <div className="">
             <label className="font-medium block" htmlFor="">
@@ -159,12 +154,20 @@ export default function DetailPesananAdmin() {
                       </td>
                     </tr>
                   ))}
+                  {/* <tr className="capitalize border">
+                    <td colSpan={3} className="py-1 px-1 text-left">
+                      Jumlah
+                    </td>
+                    <td colSpan={1} className="text-center ">
+                      {data?.jumlah}
+                    </td>
+                  </tr> */}
                   <tr className="capitalize  border">
                     <td colSpan={3} className="py-1 px-1 text-left">
                       Status Pembayaran :
                     </td>
                     <td colSpan={1} className="text-center ">
-                      {status_pembayaran == 1 ? "lunas" : "belum dibayarkan"}
+                      {status_pembayaran}
                     </td>
                   </tr>
                   <tr className="capitalize  border">

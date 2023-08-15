@@ -2,11 +2,9 @@ import React from "react";
 import Fetcher from "../../utils/Fetcher";
 import Skeleton from "../../components/loading/Skeleton";
 import GoToTop from "../../helpers/GoToTop";
-
+import { motion } from "framer-motion";
 export default function Kategori() {
-  const { data, loading, error } = Fetcher(
-    "https://dummyjson.com/produxcts/categories"
-  );
+  const { data, loading, error } = Fetcher("kategori");
   return (
     <>
       <GoToTop />
@@ -14,20 +12,26 @@ export default function Kategori() {
         <h1 className="titles py-5 text-center">Kategori</h1>
         {error && error}
         <div className="grid grid-cols-4 gap-5 place-content-center">
-          {loading
-            ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((m, index) => (
-                <Skeleton key={(m, index)} style={"lg:h-[17rem] rounded-lg"} />
+          {loading || !data
+            ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((m) => (
+                <Skeleton key={m} style={"lg:h-[17rem] rounded-lg"} />
               ))
-            : data.map((m) => (
-                <div
+            : data?.data?.map((m) => (
+                <motion.div
                   key={m.id}
-                  className="lg:h-[17rem] bg-cover  bg-center rounded-md cursor-pointer  h-[17rem] w-full border shadow-lg flex justify-center items-center "
-                  style={{
-                    backgroundImage: `url('https://images.unsplash.com/photo-1608748010899-18f300247112?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fHN0eWxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60')`,
-                  }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                  className="lg:w-[14em] w-[10rem] h-[14rem] shadow-md   lg:h-[16rem] relative group cursor-pointer hover:scale-95 ransition-all duration-200 ease-in-out overflow-hidden hover:contrast-150    flex justify-center rounded-lg  bg-cover bg-center border  "
                 >
-                  <p className="text-xl font-bold text-white">{m}</p>
-                </div>
+                  <div
+                    className="absolute  group-hover:border  w-full h-full bg-cover group-hover:rotate-2  bg-center group-hover:scale-110  transition-all duration-200 ease-in-out "
+                    style={{
+                      backgroundImage: `url('${m.image}')`,
+                    }}
+                  ></div>
+                  <h1 className="title bg-black/30  absolute text-center p-3 flex justify-center items-center w-full h-full text-base ">
+                    {m.name}
+                  </h1>
+                </motion.div>
               ))}
         </div>
       </div>

@@ -1,7 +1,18 @@
 import { FormatRupiah } from "@arismun/format-rupiah";
-import React from "react";
+import React, { useState } from "react";
+import { NumericFormat } from "react-number-format";
 
-export default function SideProduk({ setRating, rating, setDatas }) {
+export default function SideProduk({
+  setRating,
+  setMin,
+  setMax,
+  rating,
+  setDatas,
+}) {
+  const [form, setForm] = useState({
+    min: 0,
+    max: 0,
+  });
   const kategori = [
     {
       nama: "semua",
@@ -16,6 +27,12 @@ export default function SideProduk({ setRating, rating, setDatas }) {
       path: "",
     },
   ];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setMin(form.min);
+    setMax(form.max);
+  };
   return (
     <div className="w-full  ">
       <div className="flex lg:flex-col gap-y-4  gap-x-5 lg:gap-x-0 justify-between      ">
@@ -38,7 +55,22 @@ export default function SideProduk({ setRating, rating, setDatas }) {
           <h1 className="text-[16px] capitalize    mb-2 font-semibold">
             Harga
           </h1>
-          <ul className="flex flex-col gap-y-1   text-[14px]">
+          <form onSubmit={handleSubmit} className="flex flex-col  gap-y-2">
+            <input
+              placeholder="Minimal"
+              onChange={(e) => setForm({ ...form, min: e.target.value })}
+              className="outline-none h-7  px-1  border"
+            />
+            <input
+              placeholder="Maksimal"
+              onChange={(e) => setForm({ ...form, max: e.target.value })}
+              className="outline-none h-7  px-1  border"
+            />
+            <button type="submit" className="btn font-semibold rounded-sm">
+              Terapkan
+            </button>
+          </form>
+          {/* <ul className="flex flex-col gap-y-1   text-[14px]">
             <li className="flex gap-x-3 jus cursor-pointer">
               <input type="radio" name="harga" id="10rb" />
               <label className="cursor-pointer" htmlFor="10rb">
@@ -57,7 +89,7 @@ export default function SideProduk({ setRating, rating, setDatas }) {
                 40 - 60 rb
               </label>
             </li>
-          </ul>
+          </ul> */}
         </div>
         <div>
           <h1 className="text-[16px] capitalize  mb-2 font-semibold">Rating</h1>
