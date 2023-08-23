@@ -1,18 +1,16 @@
-import React, { useState } from "react";
-import Exit from "../Exit";
-import { motion } from "framer-motion";
-import { BsFileEarmarkImageFill } from "react-icons/bs";
-import ButtonPrimary from "../buttons/ButtonPrimary";
-import POST from "../../api/post.api";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { BsFileEarmarkImageFill } from "react-icons/bs";
 import { v4 } from "uuid";
-import { storage } from "../../configs/Firebase";
 import axiosInstance from "../../configs/AxiosInstance";
+import { storage } from "../../configs/Firebase";
+import Exit from "../Exit";
+import { toast } from "react-hot-toast";
 export default function ModalTambahKategoriEdit({
   setModal,
   datas,
   setFetched,
-  setMessage,
 }) {
   const [form, setForm] = useState({
     name: datas?.name,
@@ -34,7 +32,7 @@ export default function ModalTambahKategoriEdit({
         image: form.image,
       })
       .then((res) => {
-        setMessage(res.data.message);
+        toast.success(res.data.message);
         setFetched(false);
         setModal(false);
       });

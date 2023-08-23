@@ -1,18 +1,14 @@
-import React, { useState } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { v4 } from "uuid";
-import { storage } from "../../../configs/Firebase";
-import { BsFileEarmarkImageFill } from "react-icons/bs";
-import Exit from "../../Exit";
 import { motion } from "framer-motion";
-import POST from "../../../api/post.api";
-import Fetcher from "../../../utils/Fetcher";
-export default function ModalEditProduk({
-  setModal,
-  data,
-  setFetched,
-  setMessage,
-}) {
+import React, { useState } from "react";
+import { BsFileEarmarkImageFill } from "react-icons/bs";
+import { v4 } from "uuid";
+import POST from "../../api/post.api";
+import { storage } from "../../configs/Firebase";
+import Fetcher from "../../utils/Fetcher";
+import Exit from "../Exit";
+import { toast } from "react-hot-toast";
+export default function ModalEditProduk({ setModal, data, setFetched }) {
   const {
     kategori_id,
     nama,
@@ -35,6 +31,7 @@ export default function ModalEditProduk({
     kategori_id: data?.kategori_id,
     nama: data?.nama,
     deskripsi: data?.deskripsi,
+    jenis: data?.jenis,
     foto: data?.foto,
     foto2: data?.foto2,
     foto3: data?.foto3,
@@ -95,7 +92,7 @@ export default function ModalEditProduk({
   const handleSubmit = (e) => {
     e.preventDefault();
     POST.updateProduk(form, id).then((res) => {
-      setMessage(res.data.message);
+      toast.success(res.data.message);
       setModal(false);
       setFetched(false);
     });
@@ -260,6 +257,21 @@ export default function ModalEditProduk({
                   className="outline-none border h-44 w-full rounded-lg"
                 />
               </div>
+              <div className="flex flex-col gap-y-1">
+                <label htmlFor="nama" className="block">
+                  Jenis
+                </label>
+                <select
+                  name="jenis"
+                  onChange={handleOnchange}
+                  className="w-56 h-10 rounded-md outline-none  border"
+                  id=""
+                  defaultValue={form.jenis}
+                >
+                  <option value="pria">Pria</option>
+                  <option value="wanita">Wanita</option>
+                </select>
+              </div>
               <div className="flex gap-x-1">
                 <label htmlFor="nama" className="block">
                   Status
@@ -272,6 +284,7 @@ export default function ModalEditProduk({
                   className=""
                 />
               </div>
+
               <div className="">
                 <label htmlFor="nama" className="block">
                   Ukuran

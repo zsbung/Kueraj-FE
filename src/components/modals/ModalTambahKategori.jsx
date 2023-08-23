@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import Exit from "../Exit";
-import { motion } from "framer-motion";
-import { BsFileEarmarkImageFill } from "react-icons/bs";
-import ButtonPrimary from "../buttons/ButtonPrimary";
-import POST from "../../api/post.api";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { BsFileEarmarkImageFill } from "react-icons/bs";
 import { v4 } from "uuid";
+import POST from "../../api/post.api";
 import { storage } from "../../configs/Firebase";
+import Exit from "../Exit";
+import { toast } from "react-hot-toast";
 export default function ModalTambahKategori({
   setModal,
   setFetched,
@@ -27,7 +27,7 @@ export default function ModalTambahKategori({
   const handleSubmit = (e) => {
     e.preventDefault();
     POST.addKategori(form).then((res) => {
-      setMessage(res.data.message);
+      toast.success(res.data.message);
       setFetched(false);
       setModal(false);
     });

@@ -14,9 +14,7 @@ export default function About() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputValue);
     const whatsapp = `https://api.whatsapp.com/send?phone=6282281788810&text=Nama%3A%20${inputValue.nama}%0APesan%3A%20${inputValue.pesan}`;
-
     window.open(whatsapp, "_blank");
   };
   return (

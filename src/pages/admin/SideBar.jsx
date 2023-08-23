@@ -32,13 +32,13 @@ export default function SideBar() {
     },
 
     {
-      nama: "Penjualan",
-      path: "penjualan",
+      nama: "Pesanan",
+      path: "pesanan",
       icon: <AiFillShopping />,
     },
     {
       nama: "Pengguna",
-      path: "/admin",
+      path: "pengguna",
       icon: <FaUsers />,
     },
   ];

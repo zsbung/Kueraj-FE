@@ -1,12 +1,7 @@
-import React, { useState } from "react";
-import {
-  AiOutlineEye,
-  AiOutlineEyeInvisible,
-  AiOutlineLock,
-} from "react-icons/ai";
-import { TfiPencilAlt } from "react-icons/tfi";
-import { CONSTANT } from "../../utils/Constant";
 import axios from "axios";
+import React, { useState } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { CONSTANT } from "../../utils/Constant";
 
 export default function Form() {
   const [name, setName] = useState("");
@@ -90,7 +85,7 @@ export default function Form() {
         </div>
         <button className="w-full h-10 rounded-lg bg-primary flex justify-center items-center text-white font-bold hover:bg-secondary transisi ">
           {!login ? (
-            "login"
+            "Register"
           ) : (
             <motion.span
               animate={{ rotate: 180 }}

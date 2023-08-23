@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
-import { BiSearch } from "react-icons/bi";
 import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { BiSearch } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 export default function FormNavbar({ search, setSearch }) {
   const [form, setForm] = useState("");

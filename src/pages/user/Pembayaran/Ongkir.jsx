@@ -1,6 +1,4 @@
-import { FormatRupiah } from "@arismun/format-rupiah";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Ongkir({ handleOnclick }) {
   const [check, setCheck] = useState(false);

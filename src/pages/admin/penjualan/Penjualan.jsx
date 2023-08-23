@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { FormatRupiah } from "@arismun/format-rupiah";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import SearchProduk from "../../../components/Search/SearchProduk";
 import LoadingTable from "../../../components/loading/LoadingTable";
 import Fetcher from "../../../utils/Fetcher";
-import { FormatRupiah } from "@arismun/format-rupiah";
-import { useNavigate } from "react-router-dom";
 
 export default function Penjualan() {
   const { loading, data, error } = Fetcher("listPemesan");
@@ -35,16 +35,20 @@ export default function Penjualan() {
                 <tr key={pemesan.id} className="border">
                   <td className=" text-center">{++index}</td>
 
-                  <td className=" text-center">{pemesan.nama}</td>
                   <td className=" text-center">
-                    <FormatRupiah value={pemesan.harga_pesanan} />
+                    {pemesan.nama_depan} {pemesan.nama_belakang}
                   </td>
-                  <td className=" text-center">{pemesan.status_pembayaran}</td>
+                  <td className=" text-center">
+                    <FormatRupiah value={pemesan?.transaksi?.harga_pesanan} />
+                  </td>
+                  <td className=" text-center">
+                    {pemesan.transaksi?.status_pembayaran}
+                  </td>
                   <td className=" text-center capitalize">
-                    {pemesan.metode_pembayaran}
+                    {pemesan.transaksi?.metode_pembayaran}
                   </td>
 
-                  <td className="  text-center">
+                  <td className="  text-center py-2">
                     <div className="flex items-center gap-1 justify-center ">
                       <button
                         onClick={() =>

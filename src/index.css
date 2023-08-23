@@ -34,9 +34,13 @@
 }
 
 .title {
-  @apply font-bold text-[20px] tracking-wider capitalize;
+  @apply font-bold text-[15px] lg:text-[20px] tracking-wider capitalize;
 }
 
 .inputProduk {
   @apply outline-none border h-9 w-full rounded-lg px-2;
+}
+
+.formPemesan {
+  @apply border-2 border-solid rounded-lg h-9 w-full outline-none px-2 focus:border-primary transition-all duration-150;
 }

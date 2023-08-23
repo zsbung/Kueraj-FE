@@ -1,18 +1,14 @@
 import React from "react";
+import { toast } from "react-hot-toast";
 import { MdErrorOutline } from "react-icons/md";
 import axiosInstance from "../configs/AxiosInstance";
-export default function ModalHapus({
-  setFetched,
-  setModal,
-  setMessage,
-  datas,
-}) {
+export default function ModalHapus({ setFetched, setModal, datas }) {
   const handleDelete = (e) => {
     const { item, id } = datas;
     axiosInstance.delete(`${item}/${id}`).then((res) => {
-      setMessage(res.data.message);
       setFetched(false);
       setModal(false);
+      toast.success(res.data.message, { duration: 500 });
     });
   };
 
@@ -27,16 +23,16 @@ export default function ModalHapus({
           <p className="text-[16px]">Yakin untuk menghapus?</p>
           <div className="flex gap-x-2 justify-center">
             <button
-              onClick={handleDelete}
-              className="btn px-3 py-2 text-lg font-semibold rounded-lg"
-            >
-              Hapus
-            </button>
-            <button
               onClick={() => setModal(false)}
               className="bg-red-600 text-white hover:bg-red-700 px-3 py-2 text-lg font-semibold rounded-lg"
             >
               Batal
+            </button>
+            <button
+              onClick={handleDelete}
+              className="btn px-3 py-2 text-lg font-semibold rounded-lg"
+            >
+              Hapus
             </button>
           </div>
         </div>

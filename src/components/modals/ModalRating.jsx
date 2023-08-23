@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import Exit from "../Exit";
 import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { FaStar } from "react-icons/fa";
 import axiosInstance from "../../configs/AxiosInstance";
-import { toast } from "react-hot-toast";
-export default function ModalRating({ setModal, data, setMessage }) {
+import Exit from "../Exit";
+export default function ModalRating({ setModal, data }) {
   const [rating, setRating] = useState(0);
   const [komentar, setKomentar] = useState("");
 
@@ -24,7 +24,7 @@ export default function ModalRating({ setModal, data, setMessage }) {
         toast.success(res.data.message + " " + data.namaProduk);
         setModal(false);
       })
-      .catch((err) => console.log(err.response));
+      .catch((err) => toast.error(err.response.data.message));
   };
 
   return (
@@ -35,9 +35,10 @@ export default function ModalRating({ setModal, data, setMessage }) {
           animate={{ scale: 1 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
           exit={{ scale: 0 }}
-          className="bg-white p-5 w-[30%] rounded-lg relative"
+          className="bg-white p-5 lg:w-[30%] rounded-lg relative"
         >
           <h1 className="text-center font-bold text-lg ">Rating</h1>
+
           <button onClick={() => setModal(false)}>
             <Exit />
           </button>

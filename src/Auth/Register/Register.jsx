@@ -1,9 +1,9 @@
+import { motion } from "framer-motion";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Form from "./Form";
-import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
-import { AnimatePresence, easeInOut, motion } from "framer-motion";
 export default function Register({ transition, setLogin }) {
+  let navigate = useNavigate();
   return (
     <motion.div
       variants={transition}
@@ -19,15 +19,24 @@ export default function Register({ transition, setLogin }) {
 
       <div className="flex  justify-center items-end w-full text-gray-500 text-sm">
         <p>
-          Dont have account?{" "}
+          Already have an account?{" "}
           <span
             onClick={() => setLogin(true)}
             className="text-primary hover:text-secondary  hover:underline cursor-pointer font-medium"
           >
-            sign'in
+            Login here
           </span>
         </p>
       </div>
+      <p className="text-gray-500  text-sm">
+        Kembali ke halaman{" "}
+        <span
+          onClick={() => navigate("/")}
+          className="text-primary hover:text-secondary hover:underline cursor-pointer font-medium"
+        >
+          Home
+        </span>
+      </p>
     </motion.div>
   );
 }

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import CardKeranjang from "./CardKeranjang";
 import { FormatRupiah } from "@arismun/format-rupiah";
-import Fetcher from "../../../utils/Fetcher";
-import { Navigate, useNavigate } from "react-router-dom";
-import "../../../components/loading/loading.css";
-import Skeleton from "../../../components/loading/Skeleton";
+import React, { useState } from "react";
 import { IoIosCart } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import Skeleton from "../../../components/loading/Skeleton";
+import "../../../components/loading/loading.css";
 import GoToTop from "../../../helpers/GoToTop";
+import Fetcher from "../../../utils/Fetcher";
+import CardKeranjang from "./CardKeranjang";
 export default function Keranjang() {
   const { data, loading, error, setFetched } = Fetcher("checkoutBarang");
   const [check, setCheck] = useState(true);
@@ -63,7 +63,7 @@ export default function Keranjang() {
               </div> */}
                 <div className=" text-[14px] font-medium">
                   <div className="flex  justify-between">
-                    <p>Total Harga (10 barang) </p>
+                    <p>Total Harga ({data?.keranjang?.length} barang) </p>
                     <p className="font-bold">
                       <FormatRupiah value={data.total} />{" "}
                     </p>

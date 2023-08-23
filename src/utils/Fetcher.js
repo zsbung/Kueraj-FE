@@ -9,12 +9,13 @@ export default function Fetcher(url) {
 
   useEffect(() => {
     setFetched(true);
+    setLoading(true);
     if (url) {
-      setLoading(true);
       axiosInstance
         .get(url)
         .then((res) => {
           setDatas(res.data);
+          setLoading(false);
         })
         .catch((error) => setError("gagal mendapatkan data..."))
         .finally(() => {

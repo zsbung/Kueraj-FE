@@ -2,35 +2,40 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { BsFileEarmarkImageFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
 import { v4 } from "uuid";
-import POST from "../../../api/post.api";
-import { storage } from "../../../configs/Firebase";
-import Fetcher from "../../../utils/Fetcher";
-import Exit from "../../Exit";
+import POST from "../../api/post.api";
+import { storage } from "../../configs/Firebase";
+import Fetcher from "../../utils/Fetcher";
+import Exit from "../Exit";
 export default function ModalTambahProduk({
   setMessage,
   setModal,
   setFetched,
 }) {
-  let navigate = useNavigate();
   const [form, setForm] = useState({
     kategori_id: 1,
-    nama: "produk1",
-    deskripsi: "deskripsi1",
+    nama: "",
+    deskripsi: "",
     foto: "",
     foto2: "",
     foto3: "",
-    harga: 10000,
-    stok: 5,
+    harga: 50000,
+    stok: 100,
+    jenis: "pria",
+    status: 1,
+    ukuran_S: 1,
+    ukuran_L: 1,
+    ukuran_XL: 1,
+    ukuran_M: 1,
   });
   const { data, loading, error } = Fetcher("kategori");
 
   const handleOnchange = (e) => {
-    const { name, value, checked } = e.target;
+    const { name, value, checked, type } = e.target;
     setForm({
       ...form,
       [name]: name == "status" ? checked : type == "checkbox" ? checked : value,
+      // [name]: name == "status" ? checked : type == "checkbox" ? checked : value,
     });
   };
 
@@ -118,9 +123,9 @@ export default function ModalTambahProduk({
                     Nama
                   </label>
                   <input
+                    type="text"
                     name="nama"
                     onChange={handleOnchange}
-                    type="text"
                     className="inputProduk"
                   />
                 </div>
@@ -216,30 +221,93 @@ export default function ModalTambahProduk({
               </div>
               <div
                 className="flex  flex-col gap-y-2  
-        "
+      "
               >
                 <div>
                   <div>
-                    <label htmlFor="nama" className="block capitalize">
+                    <label htmlFor="nama" className="block">
                       Deskripsi
                     </label>
                     <textarea
+                      type="text"
                       name="deskripsi"
                       onChange={handleOnchange}
-                      type="text"
                       className="outline-none border h-44 w-full rounded-lg"
                     />
                   </div>
-                  <div className="flex items-center gap-x-3  ">
-                    <label htmlFor="nama" className="block capitalize">
+                  <div className="flex flex-col gap-y-1">
+                    <label htmlFor="nama" className="block">
+                      Jenis
+                    </label>
+                    <select
+                      name="jenis"
+                      onChange={handleOnchange}
+                      className="w-56 h-10 rounded-md outline-none  border"
+                      id=""
+                    >
+                      <option value="pria">Pria</option>
+                      <option value="wanita">Wanita</option>
+                    </select>
+                  </div>
+                  <div className="flex gap-x-1">
+                    <label htmlFor="nama" className="block">
                       Status
                     </label>
                     <input
                       name="status"
                       onChange={handleOnchange}
                       type="checkbox"
-                      className="w-5 h-5 cursor-pointer bg-black"
+                      defaultChecked={true}
+                      className=""
                     />
+                  </div>
+
+                  <div className="">
+                    <label htmlFor="nama" className="block">
+                      Ukuran
+                    </label>
+                    <div className="flex gap-x-2">
+                      <div className="flex gap-x-[2px]">
+                        S
+                        <input
+                          name="ukuran_S"
+                          onChange={handleOnchange}
+                          type="checkbox"
+                          defaultChecked={true}
+                          className=""
+                        />
+                      </div>
+                      <div className="flex gap-x-[2px]">
+                        M
+                        <input
+                          name="ukuran_M"
+                          onChange={handleOnchange}
+                          type="checkbox"
+                          defaultChecked={true}
+                          className=""
+                        />
+                      </div>
+                      <div className="flex gap-x-[2px]">
+                        L
+                        <input
+                          name="ukuran_L"
+                          onChange={handleOnchange}
+                          type="checkbox"
+                          defaultChecked={true}
+                          className=""
+                        />
+                      </div>
+                      <div className="flex gap-x-[2px]">
+                        XL
+                        <input
+                          name="ukuran_XL"
+                          onChange={handleOnchange}
+                          type="checkbox"
+                          defaultChecked={true}
+                          className=""
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

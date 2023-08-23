@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -7,10 +8,13 @@ import GoToTop from "../../../helpers/GoToTop";
 import Barang from "./Barang";
 import Pemesan from "./Pemesan";
 import Ringkasan from "./Ringkasan";
-import moment from "moment";
 export default function Pembayaran() {
   const [check, setCheck] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState({
+    modal: false,
+    url: "",
+  });
   let navigate = useNavigate();
   const { state } = useLocation();
   const [form, setForm] = useState({
@@ -20,6 +24,7 @@ export default function Pembayaran() {
     nama_belakang: "",
     metode_pembayaran: "",
     nohp: "0822121212",
+    catatan: "",
     provinsi: 1,
     tanggal_pemesanan: moment().format("LL"),
   });
@@ -47,6 +52,7 @@ export default function Pembayaran() {
       kota,
       provinsi,
       nohp,
+      catatan,
       harga_ongkir,
       tanggal_pemesanan,
       nama_ongkir,
@@ -61,6 +67,7 @@ export default function Pembayaran() {
         nama_belakang,
         nama,
         alamat,
+        catatan,
         email,
         tanggal_pemesanan,
         kodepos,
@@ -68,7 +75,6 @@ export default function Pembayaran() {
         provinsi,
       })
       .then((res) => {
-        // console.log(res.data);
         const screenWidth = window.screen.width;
         const screenHeight = window.screen.height;
         const windowWidth = 400; // Desired window width
@@ -80,6 +86,9 @@ export default function Pembayaran() {
           null,
           `width=${windowWidth},height=${windowHeight},left=${left},top=${top}`
         );
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
       })
       .catch((err) => toast.error(err.response.data.message));
   };
@@ -115,65 +124,6 @@ export default function Pembayaran() {
           />
         </div>
         <div className="col-span-7 lg:col-span-2   p-2 border relative rounded-lg ">
-          {/* <h1 className="font-bold mb-5 text-xl tracking-wider capitalize">
-            Pilih pembayaran
-          </h1> */}
-          {/* <div className="flex items-start flex-col gap-y-3 mb-40 lg:mb-5 ">
-            <label
-              htmlFor="gopay"
-              className="capitalize flex flex-row-reverse cursor-pointer items-center gap-x-2   lg:text-[20px]"
-            >
-              <img
-                src="https://seeklogo.com/images/G/gopay-logo-D27C1EBD0D-seeklogo.com.png"
-                className="h-[14px] "
-                alt=""
-              />
-
-              <input
-                className="checked:bg-blue-700"
-                type="radio"
-                value={"gopay"}
-                name="metode_pembayaran"
-                id="gopay"
-                onChange={handleOnChange}
-              />
-            </label>
-            <label
-              htmlFor="dana"
-              className="capitalize flex flex-row-reverse cursor-pointer items-center gap-x-2  text-[14px]"
-            >
-              <img
-                src="https://seeklogo.com/images/D/dana-e-wallet-app-logo-F56CE2EEE0-seeklogo.com.png"
-                className="h-[14px]"
-                alt=""
-              />
-              <input
-                onChange={handleOnChange}
-                type="radio"
-                name="metode_pembayaran"
-                value={"dana"}
-                id="dana"
-              />
-            </label>
-            <label
-              htmlFor="bri"
-              className="capitalize flex flex-row-reverse cursor-pointer items-center gap-x-2  text-[14px]"
-            >
-              <img
-                className="h-[14px]"
-                src="https://seeklogo.com/images/B/bank-bri-logo-8036F80C97-seeklogo.com.png"
-                alt=""
-              />
-              <input
-                onChange={handleOnChange}
-                type="radio"
-                name="metode_pembayaran"
-                value={"bri"}
-                id="bri"
-              />
-            </label>
-          </div> */}
-
           <Ringkasan
             handleOnclick={handleOnclick}
             total={state}

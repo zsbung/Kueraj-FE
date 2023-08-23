@@ -1,17 +1,18 @@
 import { FormatRupiah } from "@arismun/format-rupiah";
-import React, { useEffect, useState } from "react";
-import { BiPlusCircle, BiSearch } from "react-icons/bi";
-import { DELETE } from "../../../api/delete.api";
-import LoadingTable from "../../../components/loading/LoadingTable";
-import Fetcher from "../../../utils/Fetcher";
-import ButtonPrimary from "../../../components/buttons/ButtonPrimary";
-import SearchProduk from "../../../components/Search/SearchProduk";
 import { AnimatePresence } from "framer-motion";
-import ModalEditProduk from "../../../components/modals/produk/ModalEditProduk";
-import ModalTambahProduk from "../../../components/modals/produk/ModalTambahProduk";
+import React, { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
+import { BiPlusCircle } from "react-icons/bi";
 import ModalHapus from "../../../components/ModalHapus";
-import { Toaster, toast } from "react-hot-toast";
+import ButtonPrimary from "../../../components/buttons/ButtonPrimary";
+import LoadingTable from "../../../components/loading/LoadingTable";
+import ModalEditProduk from "../../../components/modals/ModalEditProduk";
+import ModalTambahProduk from "../../../components/modals/ModalTambahProduk";
 import GoToTop from "../../../helpers/GoToTop";
+import Fetcher from "../../../utils/Fetcher";
+import SearchProduk from "../../../components/Search/SearchProduk";
+import { useDebounce } from "../../../mockup/UseDebounce";
+import axiosInstance from "../../../configs/AxiosInstance";
 export default function Produk() {
   const [show, setShow] = useState({
     modalEdit: false,
@@ -19,31 +20,41 @@ export default function Produk() {
     modalHapus: false,
     data: {},
   });
+
+  const [data, setDatas] = useState([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [fetched, setFetched] = useState(false);
+
   const [message, setMessage] = useState("");
-  const { data, loading, error, fetched, setFetched } = Fetcher("produk");
-  const handleDeleteProduk = (e, id) => {
-    e.preventDefault();
-    DELETE.deleteProduk(id).then((res) => console.log(res.data.message));
-  };
-  const handleOnchange = (e) => {
-    console.log(e.target.value);
-  };
+  const [_search, setSearch] = useState(null);
+
+  const [search] = useDebounce(200, _search);
 
   useEffect(() => {
-    if (message !== "") {
-      toast.success(message);
-      setMessage("");
-    }
-  }, [message]);
+    setFetched(true);
+    setLoading(true);
+    axiosInstance
+      .get(`produk?search=${search}`)
+      .then((res) => {
+        setDatas(res.data);
+        setLoading(false);
+      })
+      .catch((error) => setError("gagal mendapatkan data..."))
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [fetched, search]);
+
   return (
     <>
+      <Toaster />
       <AnimatePresence>
         {show.modalEdit && (
           <ModalEditProduk
             setFetched={setFetched}
             setModal={setShow}
             data={show.data}
-            setMessage={setMessage}
           />
         )}
         {show.modalTambah && (
@@ -57,7 +68,6 @@ export default function Produk() {
       {show.modalHapus && (
         <ModalHapus
           setModal={setShow}
-          setMessage={setMessage}
           datas={show.data}
           setFetched={setFetched}
         />
@@ -70,7 +80,7 @@ export default function Produk() {
           <SearchProduk
             text={"cari produk..."}
             name={"produk"}
-            onChange={handleOnchange}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <div>
@@ -82,14 +92,14 @@ export default function Produk() {
         </div>
       </div>
       {loading && <LoadingTable />}
-      {!loading && (
-        <table className="table-auto w-full font-medium  border-collapse ">
+      {!loading && data && (
+        <table className="table-auto w-full mb-5 font-medium  border-collapse ">
           <thead className="border">
             <tr className="bg-gray-200 capitalize border ">
               <th className=" px-2 py-2 text-center">No</th>
               <th className=" px-2 py-2 text-center">Produk</th>
               <th className=" px-2 py-2 text-center">Nama</th>
-              <th className=" px-2 py-2 text-center">Kategori</th>
+              <th className=" px-2 py-2 text-left">Kategori</th>
               <th className=" px-2 py-2 text-center">Harga</th>
               <th className=" px-2 py-2 text-center">stok</th>
               <th className=" px-2 py-2 text-center">aksi</th>
@@ -97,23 +107,23 @@ export default function Produk() {
           </thead>
           <tbody>
             {data &&
-              data.data?.data?.map((produks, index) => (
+              data?.data?.data?.map((produks, index) => (
                 <tr key={produks.id} className="border">
-                  <td className=" text-center">{++index}</td>
-                  <td className="flex justify-center items-center">
-                    <img className="h-12 w-12" src={produks.foto} alt="" />
+                  <td className="px-2  text-center">{++index}</td>
+                  <td className="px-2 flex justify-center items-center">
+                    <img className=" h-12 w-12" src={produks.foto} alt="" />
                   </td>
-                  <td className=" text-center">{produks.nama}</td>
-                  <td className=" text-center">{produks.kategori?.name}</td>
-                  <td className=" text-center">
+                  <td className="px-2  text-left">{produks.nama}</td>
+                  <td className="px-2  text-left">{produks.kategori?.name}</td>
+                  <td className="px-2  text-center">
                     <FormatRupiah value={produks.harga} />
                   </td>
-                  <td className="text-center">
-                    <span className=" font-bold  text-primary text-center px-5 py-1 rounded-lg bg-primary/20 ">
+                  <td className="px-2 text-center">
+                    <span className="  font-bold  text-primary text-center px-5 py-1 rounded-lg bg-primary/20 ">
                       {produks.stok}
                     </span>
                   </td>
-                  <td className="  text-center">
+                  <td className="px-2   text-center">
                     <div className="flex items-center gap-1 justify-center ">
                       <button
                         onClick={() =>

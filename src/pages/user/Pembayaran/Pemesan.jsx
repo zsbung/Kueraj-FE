@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { CONSTANT } from "../../../utils/Constant";
-import axiosInstance from "../../../configs/AxiosInstance";
 import Skeleton from "../../../components/loading/Skeleton";
+import { CONSTANT } from "../../../utils/Constant";
 import PemesanSebelum from "./PemesanSebelum";
 export default function Pemesan({ handleOnChange, setForm, form }) {
   const [prev, setPrev] = useState(false);
@@ -32,8 +31,10 @@ export default function Pemesan({ handleOnChange, setForm, form }) {
     setLoad({ ...load, city: true });
     await axios
       .get(`${CONSTANT.BASEURL}city?provinsi=${selectProv}`)
-      .then((res) => setCity(res.data.rajaongkir.results))
-      .finally(setLoad({ ...load, city: false }));
+      .then((res) => {
+        setCity(res.data.rajaongkir.results);
+        setLoad({ ...load, city: false });
+      });
   }
 
   const handleCity = () => {
@@ -61,6 +62,7 @@ export default function Pemesan({ handleOnChange, setForm, form }) {
         <h1 className="title mb-2">Informasi Pemesan</h1>
         <p className="capitalize text-[12px] font-semibold mb-2  flex items-center gap-x-1">
           <input
+            required
             onClick={() => setPrev(!prev)}
             type="checkbox"
             className="cursor-pointer "
@@ -77,10 +79,11 @@ export default function Pemesan({ handleOnChange, setForm, form }) {
             Email*
           </label>
           <input
+            required
             name="email"
             onChange={handleOnChange}
             type="text"
-            className="border border-solid rounded-lg h-9 w-full outline-none px-2"
+            className="formPemesan"
           />
         </div>
         <div className="w-full">
@@ -88,10 +91,11 @@ export default function Pemesan({ handleOnChange, setForm, form }) {
             Nama Depan*
           </label>
           <input
+            required
             type="text"
             name="nama_depan"
             onChange={handleOnChange}
-            className="border border-solid rounded-lg h-9 w-full outline-none px-2"
+            className="formPemesan"
           />
         </div>
         <div className="w-full">
@@ -99,10 +103,11 @@ export default function Pemesan({ handleOnChange, setForm, form }) {
             Nama Belakang*
           </label>
           <input
+            required
             name="nama_belakang"
             onChange={handleOnChange}
             type="text"
-            className="border border-solid rounded-lg h-9 w-full outline-none px-2"
+            className="formPemesan"
           />
         </div>
         <div className="w-full">
@@ -110,10 +115,11 @@ export default function Pemesan({ handleOnChange, setForm, form }) {
             Nomor Hp*
           </label>
           <input
+            required
             name="noHp"
             onChange={handleOnChange}
             type="text"
-            className="border border-solid rounded-lg h-9 w-full outline-none px-2"
+            className="formPemesan"
           />
         </div>
         <div className="w-full">
@@ -165,11 +171,12 @@ export default function Pemesan({ handleOnChange, setForm, form }) {
             Kode Pos*
           </label>
           <input
+            required
             name="kodepos"
             value={post}
             disabled
             type="text"
-            className="border border-solid rounded-lg h-9 w-full outline-none px-2"
+            className="formPemesan"
           />
         </div>
 
@@ -181,7 +188,18 @@ export default function Pemesan({ handleOnChange, setForm, form }) {
             name="alamat"
             onChange={handleOnChange}
             type="text"
-            className="border border-solid rounded-lg h-20 p-2 w-full outline-none"
+            className="border-2 border-solid rounded-lg h-20 p-2 w-full outline-none focus:border-primary transition-all duration-150"
+          />
+        </div>
+        <div className="w-full col-span-2">
+          <label className="" htmlFor="">
+            Tinggalkan Catatan
+          </label>
+          <textarea
+            name="catatan"
+            onChange={handleOnChange}
+            type="text"
+            className="border-2 border-solid rounded-lg h-20 p-2 w-full outline-none focus:border-primary transition-all duration-150"
           />
         </div>
       </form>

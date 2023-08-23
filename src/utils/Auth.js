@@ -11,6 +11,9 @@ const Auth = {
   getRoleAs() {
     return Cookies.get("role");
   },
+  getId() {
+    return Cookies.get("id");
+  },
   signOut(navigate) {
     navigate("/");
     Cookies.remove("token");
@@ -21,6 +24,7 @@ const Auth = {
     if (!data) return null;
     Cookies.set("token", data.token);
     Cookies.set("role", data.data.role);
+    Cookies.set("id", data.data.id);
     return data;
   },
 };

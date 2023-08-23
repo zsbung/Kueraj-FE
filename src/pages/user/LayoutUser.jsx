@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
-import Footer from "../../components/footers/Footer";
 import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/footer/Footer";
 
 export default function Layout() {
   return (

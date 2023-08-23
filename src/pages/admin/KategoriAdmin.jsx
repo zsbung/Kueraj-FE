@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import React, { useState } from "react";
+import { Toaster } from "react-hot-toast";
+import { BiPlusCircle } from "react-icons/bi";
+import ModalHapus from "../../components/ModalHapus";
 import SearchProduk from "../../components/Search/SearchProduk";
 import ButtonPrimary from "../../components/buttons/ButtonPrimary";
-import { BiPlusCircle } from "react-icons/bi";
-import ModalTambahKategori from "../../components/modals/ModalTambahKategori";
-import { AnimatePresence } from "framer-motion";
-import Fetcher from "../../utils/Fetcher";
 import LoadingTable from "../../components/loading/LoadingTable";
-import ModalHapus from "../../components/ModalHapus";
-import { Toaster, toast } from "react-hot-toast";
+import ModalTambahKategori from "../../components/modals/ModalTambahKategori";
 import ModalTambahKategoriEdit from "../../components/modals/ModalTambahKategoriEdit";
+import Fetcher from "../../utils/Fetcher";
 
 export default function KategoriAdmin() {
-  const [modal, setModal] = useState(false);
-  const [message, setMessage] = useState("");
   const [show, setShow] = useState({
     modalTambah: false,
     modalEdit: false,
@@ -21,27 +19,16 @@ export default function KategoriAdmin() {
   });
   const { loading, data, error, setFetched } = Fetcher("kategori");
 
-  useEffect(() => {
-    if (message !== "") {
-      toast.success(message);
-      setMessage("");
-    }
-  }, [message]);
   return (
     <>
       <Toaster />
       <AnimatePresence>
         {show.modalTambah && (
-          <ModalTambahKategori
-            setModal={setShow}
-            setMessage={setMessage}
-            setFetched={setFetched}
-          />
+          <ModalTambahKategori setModal={setShow} setFetched={setFetched} />
         )}
         {show.modalEdit && (
           <ModalTambahKategoriEdit
             setModal={setShow}
-            setMessage={setMessage}
             datas={show.data}
             setFetched={setFetched}
           />
@@ -57,7 +44,6 @@ export default function KategoriAdmin() {
       </div>
       {show.modalHapus && (
         <ModalHapus
-          setMessage={setMessage}
           datas={show.data}
           setModal={setShow}
           setFetched={setFetched}

@@ -1,19 +1,12 @@
-import React, { useEffect } from "react";
-import axiosInstance from "../../configs/AxiosInstance";
 import { FormatRupiah } from "@arismun/format-rupiah";
-import Fetcher from "../../utils/Fetcher";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import LoadingTable from "../../components/loading/LoadingTable";
 import Skeleton from "../../components/loading/Skeleton";
+import Fetcher from "../../utils/Fetcher";
 
 export default function History() {
-  // const [data, setData] = useState([])
-  // useEffect(() => {
-  //   axiosInstance.get("history").then((res) => setData(res.data));
-  // }, []);
   let navigate = useNavigate();
   const { data, loading, error } = Fetcher("history");
-  console.log(data);
   return (
     <>
       <div className="min-h-screen">
@@ -66,22 +59,46 @@ export default function History() {
                 data?.data?.map((m) => (
                   <tr key={m.id} className="border ">
                     <td className="text-center">
-                      {m?.transaksi.tanggal_pemesanan}
+                      {m?.transaksi?.tanggal_pemesanan}
                     </td>
                     <td className=" text-center">
                       {m.nama_depan} {m.nama_belakang}
                     </td>
-                    <td className=" text-center capitalize">
-                      {m.transaksi.status_pembayaran}
+                    <td className=" text-center capitalize flex justify-center">
+                      {m.transaksi?.status_pembayaran == "pending" ? (
+                        <button
+                          className="hover:underline text-red-700 "
+                          onClick={() => {
+                            const screenWidth = window.screen.width;
+                            const screenHeight = window.screen.height;
+                            const windowWidth = 400; // Desired window width
+                            const windowHeight = 550; // Desired window height
+                            const left = (screenWidth - windowWidth) / 2;
+                            const top = (screenHeight - windowHeight) / 2;
+                            window.open(
+                              `${m.transaksi?.url_midtrans}`,
+                              null,
+                              `width=${windowWidth},height=${windowHeight},left=${left},top=${top}`
+                            );
+                            setTimeout(() => {
+                              navigate("/");
+                            }, 1000);
+                          }}
+                        >
+                          Menunggu Pembayaran
+                        </button>
+                      ) : (
+                        m.transaksi?.status_pembayaran
+                      )}
                     </td>
                     <td className=" text-center">
-                      {m?.transaksi.metode_pembayaran}
+                      {m?.transaksi?.metode_pembayaran}
                     </td>
                     <td className=" text-center">
-                      {m.status_pemesanan == 1 ? "terkirim" : "gagal"}
+                      {m.transaksi?.status_pemesanan}
                     </td>
                     <td className=" text-center">
-                      <FormatRupiah value={m.transaksi.harga_pesanan} />
+                      <FormatRupiah value={m.transaksi?.harga_pesanan} />
                     </td>
                     <td className="  h-full  flex flex-col justify-center px-1 py-2">
                       <button

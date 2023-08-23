@@ -1,9 +1,9 @@
-import React from "react";
-import Form from "./Form";
-import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import Form from "./Form";
 export default function Login({ transition, setLogin }) {
+  let navigate = useNavigate();
   return (
     <motion.div
       variants={transition}
@@ -16,9 +16,9 @@ export default function Login({ transition, setLogin }) {
       <h1 className="text-4xl font-semibold tracking-widest">Login!</h1>
 
       <Form />
-      <div className="rounded-lg cursor-pointer hover:shadow-lg translinear w-[20rem] h-10 border bg-white flex justify-center items-center gap-x-2">
+      {/* <div className="rounded-lg cursor-pointer hover:shadow-lg translinear w-[20rem] h-10 border bg-white flex justify-center items-center gap-x-2">
         <FcGoogle /> Sign in with Google
-      </div>
+      </div> */}
       <div className="flex  justify-center items-end w-full text-gray-500 text-sm">
         <p>
           Dont have account?{" "}
@@ -26,10 +26,19 @@ export default function Login({ transition, setLogin }) {
             onClick={() => setLogin(false)}
             className="text-primary hover:text-secondary  hover:underline cursor-pointer font-medium"
           >
-            sign'up
+            Register here
           </span>
         </p>
       </div>
+      <p className="text-gray-500  text-sm">
+        Kembali ke halaman{" "}
+        <span
+          onClick={() => navigate("/")}
+          className="text-primary hover:text-secondary hover:underline cursor-pointer font-medium"
+        >
+          Home
+        </span>
+      </p>
     </motion.div>
   );
 }

@@ -1,7 +1,5 @@
 import { FormatRupiah } from "@arismun/format-rupiah";
-import React, { useEffect, useState } from "react";
-import Fetcher from "../../../utils/Fetcher";
-import axiosInstance from "../../../configs/AxiosInstance";
+import React from "react";
 
 export default function Barang({ data }) {
   return (
@@ -9,12 +7,12 @@ export default function Barang({ data }) {
       <h1 className="title mb-2">Tinjau kembali pesanan anda</h1>
       {data?.keranjang?.map((cart) => (
         <div key={cart.id} className="flex flex-col gap-y-3">
-          <div className="flex flex-col gap-x-2 lg:flex-row h-[24rem] lg:h-[7rem] lg:flex  hover:shadow-md p-2 w-full cursor-pointer">
-            <div className=" lg:w-[20%]  bg-cover bg-center rounded-xl">
-              <img className="h-full " src={cart.produk.foto} alt="" />
+          <div className="flex lg:flex-nowrap   gap-x-2 h-[9rem]  lg:h-[8rem] hover:shadow-md p-2 lg:w-full cursor-pointer">
+            <div className=" lg:w-[20%]  w-[30%] bg-cover bg-center rounded-xl">
+              <img className="h-full  " src={cart.produk.foto} alt="" />
             </div>
-            <div className="lg:w-[80%] h-[20%]">
-              <h1 className="title lg:mb-2 ">{cart.produk.nama}</h1>
+            <div className="lg:w-[80%] w-[80%] h-[20%]">
+              <h1 className="title  lg:mb-2 ">{cart.produk.nama}</h1>
               <div className="text-[13px]">
                 <p className="font-medium">ukuran : L</p>
               </div>

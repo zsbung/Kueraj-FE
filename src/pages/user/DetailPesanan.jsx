@@ -1,10 +1,11 @@
 import { FormatRupiah } from "@arismun/format-rupiah";
-import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
-import Fetcher from "../../utils/Fetcher";
-import ModalRating from "../../components/modals/ModalRating";
-import { Toaster, toast } from "react-hot-toast";
+import React, { useState } from "react";
+import { Toaster } from "react-hot-toast";
 import { FaStar } from "react-icons/fa";
+import { Link, useLocation, useParams } from "react-router-dom";
+import ModalRating from "../../components/modals/ModalRating";
+import Fetcher from "../../utils/Fetcher";
+import Skeleton from "../../components/loading/Skeleton";
 
 export default function DetailPesanan() {
   const { id } = useParams();
@@ -14,43 +15,27 @@ export default function DetailPesanan() {
     data: {},
   });
   const {
-    nama,
+    nama_depan,
+    nama_belakang,
     email,
     nohp,
     provinsi,
     kota,
     alamat,
-    tanggal_pemesanan,
+    catatan,
     kodepos,
-    status_pembayaran,
-    status_pemesanan,
-    harga_pesanan,
-    metode_pembayaran,
   } = state;
-  const [message, setMessage] = useState("");
   const { data, loading } = Fetcher(`detailPesananUser/${id}`);
-
-  //   useEffect(() => {
-  //     if (message !== "") {
-  //       toast.success(message);
-  //       setMessage("");
-  //     }
-  //   }, [message]);
+  console.log(id);
   return (
     <>
       <Toaster />
-      {show.modal && (
-        <ModalRating
-          setMessage={setMessage}
-          data={show.data}
-          setModal={setShow}
-        />
-      )}
+      {show.modal && <ModalRating data={show.data} setModal={setShow} />}
       <div className="min-h-screen">
         <h1 className="titles text-center my-5">Detail Pesanan</h1>
-        <div className="flex gap-x-3 justify-center w-full">
-          <div className="w-[40%] grid grid-cols-2 gap-y-3 place-content-start gap-x-2">
-            <div className="">
+        <div className="flex flex-col-reverse lg:flex-row   gap-x-3 justify-center w-full">
+          <div className="lg:w-[40%] grid grid-cols-2 gap-y-3 place-content-start gap-x-2">
+            <div className="col-span-2">
               <label className="font-medium block" htmlFor="">
                 Email
               </label>
@@ -65,12 +50,25 @@ export default function DetailPesanan() {
             </div>
             <div className="">
               <label className="font-medium block" htmlFor="">
-                Nama Lengkap
+                Nama Depan
               </label>
               <input
                 className="border px-1 py-1  rounded-lg w-full"
                 disabled
-                defaultValue={nama}
+                defaultValue={nama_depan}
+                type="text"
+                name=""
+                id=""
+              />
+            </div>
+            <div className="">
+              <label className="font-medium block" htmlFor="">
+                Nama Belakang
+              </label>
+              <input
+                className="border px-1 py-1  rounded-lg w-full"
+                disabled
+                defaultValue={nama_belakang}
                 type="text"
                 name=""
                 id=""
@@ -96,7 +94,7 @@ export default function DetailPesanan() {
               <input
                 className="border px-1 py-1  rounded-lg w-full"
                 disabled
-                defaultValue={tanggal_pemesanan}
+                defaultValue={state.transaksi.tanggal_pemesanan}
                 type="text"
                 name=""
                 id=""
@@ -131,6 +129,19 @@ export default function DetailPesanan() {
             </div>
             <div className="">
               <label className="font-medium block" htmlFor="">
+                Kode Pos
+              </label>
+              <input
+                className="border px-1 py-1  rounded-lg w-full"
+                disabled
+                defaultValue={kodepos}
+                type="text"
+                name=""
+                id=""
+              />
+            </div>
+            <div className="">
+              <label className="font-medium block" htmlFor="">
                 Alamat Lengkap
               </label>
               <input
@@ -149,7 +160,7 @@ export default function DetailPesanan() {
               <input
                 className="border px-1 py-1  rounded-lg w-full"
                 disabled
-                defaultValue={status_pemesanan == 1 ? "terkirim" : "menunggu"}
+                defaultValue={state.transaksi == 1 ? "terkirim" : "menunggu"}
                 type="text"
                 name=""
                 id=""
@@ -162,7 +173,7 @@ export default function DetailPesanan() {
               <input
                 className="border px-1 py-1  rounded-lg w-full"
                 disabled
-                defaultValue={metode_pembayaran}
+                defaultValue={state.transaksi.metode_pembayaran}
                 type="text"
                 name=""
                 id=""
@@ -175,7 +186,7 @@ export default function DetailPesanan() {
               <input
                 className="border px-1 py-1  rounded-lg w-full"
                 disabled
-                defaultValue={status_pembayaran}
+                defaultValue={state.transaksi.status_pembayaran}
                 type="text"
                 name=""
                 id=""
@@ -187,65 +198,91 @@ export default function DetailPesanan() {
               </label>
 
               <p className="border px-1 py-1 font-semibold  rounded-lg w-full">
-                <FormatRupiah value={harga_pesanan} />
+                <FormatRupiah value={state.transaksi.harga_pesanan} />
               </p>
             </div>
+            <div className="col-span-2">
+              <label className="font-medium block" htmlFor="">
+                Catatan
+              </label>
+              <textarea
+                className="border px-1 py-1  rounded-lg w-full"
+                disabled
+                defaultValue={catatan}
+                type="text"
+                name=""
+                id=""
+              />
+            </div>
           </div>
-          <div className="w-[50%] flex flex-col gap-y-2 ">
-            {data && !loading
-              ? data?.data?.map((m) => (
-                  <div key={m.id} className="border flex justify-between">
-                    <div className="flex gap-x-2 ">
-                      <img className="h-[6rem]  " src={m.produk.foto} alt="" />
-                      <div className="flex flex-col">
-                        <h1 className="font-semibold text-md">
-                          {m.produk.nama}
-                        </h1>
-                        <p className="opacity-95 text-sm">
-                          jumlah : {m.jml_pesanan}
-                        </p>
-
-                        <div className="py-1">
-                          <button
-                            onClick={() =>
-                              setShow({
-                                modal: !show.modal,
-                                data: {
-                                  produkId: m.produk.id,
-                                  pemesanId: m.pemesan_id,
-                                  namaProduk: m.produk.nama,
-                                },
-                              })
-                            }
-                            className="btn px-[3px] text-sm py-[2px] rounded-md"
-                          >
-                            Rating
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex gap-x-2 flex-col justify-end  items-end px-2   ">
-                      <div className="flex gap-x-[1px]">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <span
-                            key={star}
-                            className={
-                              star <= m.produk.rating
-                                ? "text-yellow-500 cursor-pointer"
-                                : "text-black"
-                            }
-                          >
-                            <FaStar size={10} />
-                          </span>
-                        ))}
-                      </div>
-                      <p className="">
-                        <FormatRupiah value={m.total_harga} />
+          <div className="lg:w-[50%] flex flex-col gap-y-2 ">
+            {data && !loading ? (
+              data?.data?.map((m) => (
+                <div key={m.id} className="border flex justify-between">
+                  <div className="flex gap-x-2 ">
+                    <img
+                      className=" lg:w-[20%] w-[30%] "
+                      src={m.produk.foto}
+                      alt=""
+                    />
+                    <div className="flex flex-col">
+                      <Link
+                        to={`/produk/${m.produk_id}`}
+                        className="font-semibold text-md"
+                      >
+                        {m.produk.nama}
+                      </Link>
+                      <p className="opacity-95 text-sm">
+                        jumlah : {m.jml_pesanan}
                       </p>
+                      <div className="py-1">
+                        <button
+                          onClick={() =>
+                            setShow({
+                              modal: !show.modal,
+                              data: {
+                                produkId: m.produk.id,
+                                pemesanId: m.pemesan_id,
+                                namaProduk: m.produk.nama,
+                              },
+                            })
+                          }
+                          className="btn px-[3px] text-sm py-[2px] rounded-md"
+                        >
+                          Rating
+                        </button>
+                      </div>
+                      <p className="text-sm">{m?.produk?.rating?.komentar}</p>
                     </div>
                   </div>
-                ))
-              : "loading"}
+                  <div className="flex gap-x-2 flex-col justify-end  items-end px-2   ">
+                    <div className="flex gap-x-[1px]">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <span
+                          key={star}
+                          className={
+                            star <= m.produk.rating
+                              ? "text-yellow-500 cursor-pointer"
+                              : "text-black"
+                          }
+                        >
+                          <FaStar size={10} />
+                        </span>
+                      ))}
+                    </div>
+                    <p className="">
+                      <FormatRupiah value={m.total_harga} />
+                    </p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <>
+                {[1, 2, 3].map((m) => (
+                  <Skeleton key={m} style={`w-full h-20`} />
+                ))}
+              </>
+            )}
           </div>
         </div>
       </div>

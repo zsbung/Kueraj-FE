@@ -1,8 +1,8 @@
 import React from "react";
-import { RxAvatar } from "react-icons/rx";
-import SideBar from "./SideBar";
-import { Outlet, useLocation, useParams } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import HeaderAdmin from "../../components/header/HeaderAdmin";
+import Auth from "../../utils/Auth";
+import SideBar from "./SideBar";
 
 export default function LayoutAdmin() {
   return (

@@ -31,7 +31,7 @@ export default function Home() {
   };
   return (
     <>
-      <div className="min-h-screen pb-32 flex flex-col gap-y-5">
+      <div className="min-h-screen pb-12 flex flex-col gap-y-5">
         <WelcomeUser />
         <Rekomendasi />
         <ProdukHome />

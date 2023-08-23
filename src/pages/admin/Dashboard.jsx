@@ -92,7 +92,7 @@ export default function Dashboard() {
   ];
 
   const { data, loading, error } = Fetcher("dashboard");
-
+  console.log(data);
   return (
     <>
       <div className="flex  justify-center  gap-x-2">
@@ -156,7 +156,7 @@ export default function Dashboard() {
             />
             <CardDashboard
               icon={<MdSell size={25} />}
-              name={"terjual"}
+              name={"Produk Terjual"}
               total={80}
             />
             {/* <CardDashboard name={"pengguna"} total={data.pengguna} />

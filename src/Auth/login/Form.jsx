@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { ImSpinner9 } from "react-icons/im";
-import ApiAuth from "../../api/auth.api";
 import { useNavigate } from "react-router-dom";
-import { Toaster, toast } from "react-hot-toast";
+import ApiAuth from "../../api/auth.api";
 export default function Form() {
   const [email, setEmail] = useState("agillstrz@gmail.com");
   const [password, setPassword] = useState("password");
@@ -17,7 +17,6 @@ export default function Form() {
     setLogin(true);
     ApiAuth.Login(email, password)
       .then((res) => {
-        toast.success(res.data.message);
         setLogin(false);
         navigate("/");
       })
