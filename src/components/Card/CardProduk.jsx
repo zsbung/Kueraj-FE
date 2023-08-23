@@ -6,8 +6,8 @@ import { IoIosCart } from "react-icons/io";
 import { VscHeartFilled } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { MyContext } from "../../context/Context";
-import AnimationCart from "../animationCart";
 import BtnCart from "../buttons/BtnMain";
+import AnimationCart from "../animationCart";
 export default function CardProduk({ produk }) {
   const { animate, handleKeranjang, image } = useContext(MyContext);
   return (

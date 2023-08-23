@@ -6,14 +6,14 @@ import { IoIosCart } from "react-icons/io";
 import { VscHeartFilled } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { MyContext } from "../../context/Context";
-import AnimationCart from "../animationCart";
+import CartAnimation from "../CartAnimation";
 import BtnCart from "../buttons/BtnMain";
 export default function CardRekomendasi({ produk }) {
   const { animate, handleKeranjang, image } = useContext(MyContext);
   return (
     <div className="relative">
       <Toaster />
-      {animate && <AnimationCart img={image} />}
+      {animate && <CartAnimation img={image} />}
       <div className="lg:w-[16rem] w-full lg:h-[24rem]  h-[18rem] hover:border-[1px] border   rounded-xl overflow-hidden cursor-pointer hover:shadow-md  relative translinear bg-white  flex flex-col">
         <div
           className="lg:h-[60%] h-[50%] bg-[#B7B7B7] bg-cover bg-center relative border"

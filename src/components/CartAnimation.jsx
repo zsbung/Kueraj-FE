@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
-export default function AnimationCart({ img }) {
+export default function CartAnimation({ img }) {
   return (
     <div className="fixed h-screen w-full z-[9999] top-0 left-0 flex justify-center items-center">
       <motion.div

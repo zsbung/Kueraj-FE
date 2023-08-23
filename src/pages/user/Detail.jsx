@@ -4,12 +4,12 @@ import { Toaster } from "react-hot-toast";
 import { AiFillStar } from "react-icons/ai";
 import { IoIosCart } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
+import CartAnimation from "../../components/CartAnimation";
 import Skeleton from "../../components/loading/Skeleton";
 import { MyContext } from "../../context/Context";
 import GoToTop from "../../helpers/GoToTop";
 import Fetcher from "../../utils/Fetcher";
 import Ulasan from "./Ulasan";
-import AnimationCart from "../../components/AnimationCart";
 export default function Detail() {
   const [count, setCount] = useState(1);
   const { id } = useParams();
@@ -37,7 +37,7 @@ export default function Detail() {
   return (
     <>
       <Toaster />
-      {animate && <AnimationCart img={image} />}
+      {animate && <CartAnimation img={image} />}
       <GoToTop />
 
       <div className=" w-full  ">
