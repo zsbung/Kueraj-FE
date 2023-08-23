@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import LayoutAuth from "../Auth/LayoutAuth";
 import Dashboard from "../pages/admin/Dashboard";
 import KategoriAdmin from "../pages/admin/KategoriAdmin";
 import Pengguna from "../pages/admin/Pengguna";

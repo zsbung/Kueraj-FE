@@ -1,5 +1,5 @@
-import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import bg from "../assets/bg.svg";
 import fotoLogin from "../assets/img/login.png";
 import Login from "./login/Login";
