@@ -9,7 +9,7 @@ import { MyContext } from "../../context/Context";
 import GoToTop from "../../helpers/GoToTop";
 import Fetcher from "../../utils/Fetcher";
 import Ulasan from "./Ulasan";
-import AnimationCart from "../../components/animationCart";
+import AnimationCart from "../../components/AnimationCart";
 export default function Detail() {
   const [count, setCount] = useState(1);
   const { id } = useParams();
