@@ -2,7 +2,7 @@ import { FormatRupiah } from "@arismun/format-rupiah";
 import { AnimatePresence } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { BiPlusCircle } from "react-icons/bi";
+import { BiPlusCircle, BiSearch } from "react-icons/bi";
 import ModalHapus from "../../../components/ModalHapus";
 import ButtonPrimary from "../../../components/buttons/ButtonPrimary";
 import LoadingTable from "../../../components/loading/LoadingTable";
@@ -27,10 +27,13 @@ export default function Produk() {
   const [fetched, setFetched] = useState(false);
 
   const [message, setMessage] = useState("");
-  const [_search, setSearch] = useState(null);
+  const [search, setSearch] = useState("");
+  const [nama, setNama] = useState("");
 
-  const [search] = useDebounce(200, _search);
-
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearch(nama);
+  };
   useEffect(() => {
     setFetched(true);
     setLoading(true);
@@ -77,11 +80,17 @@ export default function Produk() {
       {error && error}
       <div className="flex justify-between w-full mb-4">
         <div>
-          <SearchProduk
-            text={"cari produk..."}
-            name={"produk"}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+          <form onSubmit={handleSearch} htmlFor="" className="relative  ">
+            <input
+              type="text"
+              className="outline-none peer rounded-lg  w-56 h-10 border px-2 "
+              name={`Cari Produk`}
+              onChange={(e) => setNama(e.target.value)}
+            />
+            <label className="absolute flex items-center text-abu peer-focus:text-primary transisi  h-full right-0 top-0 px-2">
+              <BiSearch size={25} className="" />
+            </label>
+          </form>
         </div>
         <div>
           <ButtonPrimary

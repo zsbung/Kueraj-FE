@@ -22,14 +22,11 @@ export default function LayoutProduk() {
   const [total, setTotal] = useState(0);
   const [search, setSearch] = useState("");
 
-  // const [_search, setSearch] = useState("");
-  // const [search] = useDebounce(500, _search);
   async function fetchData() {
     setPage(1);
     try {
       const res = await axios.get(
         `${CONSTANT.BASEURL}produkUser?page=${page}&search=${search}&kategori=${kategori}&harga_min=${harga_min}&harga_max=${harga_max}&rating=${rating}&jenis=${jenis}`
-        // `${CONSTANT.BASEURL}produkUser?&limit=${count}&skip=${skip}&search=${search}&kategori=${kategori}&harga_min=${harga_min}&harga_max=${harga_max}&rating=${rating}&jenis=${jenis}`
       );
       setDatas(res.data.products.data);
       setTotal(res.data.products.total);
@@ -50,8 +47,6 @@ export default function LayoutProduk() {
     setLoading(true);
     try {
       const res = await axios.get(
-        // `${CONSTANT.BASEURL}produkUser?&limit=${count}&skip=${skip}&search=${search}&kategori=${kategori}&harga_min=${harga_min}&harga_max=${harga_max}&rating=${rating}&jenis=${jenis}`
-
         `${
           CONSTANT.BASEURL
         }produkUser?page=${2}&search=${search}&kategori=${kategori}&harga_min=${harga_min}&harga_max=${harga_max}&rating=${rating}&jenis=${jenis}`

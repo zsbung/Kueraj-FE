@@ -54,6 +54,8 @@ export default function ModalEditProduk({ setModal, data, setFetched }) {
           ? checked
           : type == "number"
           ? Number(value)
+          : name == "kategori_id"
+          ? Number(value)
           : value,
     });
   };
@@ -125,9 +127,10 @@ export default function ModalEditProduk({ setModal, data, setFetched }) {
               </label>
               <select
                 className="w-full cursor-pointer h-9 outline-none border rounded-lg"
-                name="kategori"
+                name="kategori_id"
                 defaultValue={kategori_id}
                 id=""
+                onChange={handleOnchange}
               >
                 {kategoris?.data?.map((kate) => (
                   <option

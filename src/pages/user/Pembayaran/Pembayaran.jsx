@@ -17,6 +17,7 @@ export default function Pembayaran() {
   });
   let navigate = useNavigate();
   const { state } = useLocation();
+
   const [form, setForm] = useState({
     alamat: "",
     kota: "",
@@ -28,6 +29,7 @@ export default function Pembayaran() {
     provinsi: 1,
     tanggal_pemesanan: moment().format("LL"),
   });
+  const { beli } = state;
   const handleOnChange = (e) => {
     const { value, name } = e.target;
     setForm({
@@ -57,7 +59,7 @@ export default function Pembayaran() {
       tanggal_pemesanan,
       nama_ongkir,
     } = form;
-
+    const { beli } = state;
     axiosInstance
       .post("beli", {
         nohp,
@@ -72,6 +74,7 @@ export default function Pembayaran() {
         tanggal_pemesanan,
         kodepos,
         kota,
+        beli,
         provinsi,
       })
       .then((res) => {
@@ -126,7 +129,7 @@ export default function Pembayaran() {
         <div className="col-span-7 lg:col-span-2   p-2 border relative rounded-lg ">
           <Ringkasan
             handleOnclick={handleOnclick}
-            total={state}
+            state={state}
             metode={form.metode}
           />
         </div>

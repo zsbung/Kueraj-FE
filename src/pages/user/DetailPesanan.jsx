@@ -26,7 +26,6 @@ export default function DetailPesanan() {
     kodepos,
   } = state;
   const { data, loading } = Fetcher(`detailPesananUser/${id}`);
-  console.log(id);
   return (
     <>
       <Toaster />

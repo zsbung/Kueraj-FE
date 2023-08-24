@@ -14,15 +14,15 @@ export default function SideProduk({
   });
   const jenis = [
     {
-      nama: "semua",
+      nama: "Semua",
       path: "",
     },
     {
-      nama: "pria",
+      nama: "Pria",
       path: "pria",
     },
     {
-      nama: "wanita",
+      nama: "Wanita",
       path: "wanita",
     },
   ];

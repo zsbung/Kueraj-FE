@@ -1,13 +1,9 @@
 import React from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
-import { A11y, Navigation, Pagination, Scrollbar } from "swiper";
-import "swiper/css";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-import CardProduk from "../../../components/card/CardProduk";
-import Skeleton from "../../../components/loading/Skeleton";
-import Fetcher from "../../../utils/Fetcher";
-import Auth from "../../../utils/Auth";
-import CardRekomendasi from "../../../components/card/CardRekomendasi";
+import Skeleton from "./loading/Skeleton";
+import Fetcher from "../utils/Fetcher";
+import Auth from "../utils/Auth";
+import CardRekomendasi from "./card/CardRekomendasi";
 export default function () {
   const { data, loading, error } = Fetcher(
     `rekomendasiProduk?user_id=${Auth.getId()}`

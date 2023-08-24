@@ -1,13 +1,13 @@
-import { FormatRupiah } from "@arismun/format-rupiah";
 import React, { useContext } from "react";
+import { FormatRupiah } from "@arismun/format-rupiah";
 import { Toaster } from "react-hot-toast";
 import { AiFillStar } from "react-icons/ai";
 import { IoIosCart } from "react-icons/io";
 import { VscHeartFilled } from "react-icons/vsc";
 import { Link } from "react-router-dom";
-import { MyContext } from "../../context/Context";
 import CartAnimation from "../CartAnimation";
 import BtnCart from "../buttons/BtnMain";
+import { MyContext } from "../../context/Context";
 export default function CardRekomendasi({ produk }) {
   const { animate, handleKeranjang, image } = useContext(MyContext);
   return (

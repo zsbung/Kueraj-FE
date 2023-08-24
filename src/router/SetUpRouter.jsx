@@ -12,16 +12,15 @@ import DetailPesanan from "../pages/user/DetailPesanan";
 import History from "../pages/user/History";
 import Home from "../pages/user/Home";
 import Kategori from "../pages/user/Kategori";
-import Keranjang from "../pages/user/Keranjang/Keranjang";
 import LayoutUser from "../pages/user/LayoutUser";
 import Pembayaran from "../pages/user/Pembayaran/Pembayaran";
 import LayoutProduk from "../pages/user/Produk/LayoutProduk";
 import PrivateRoute from "./PrivateRoute";
 import ProtectedRoute from "./ProtectedRoute";
+import Keranjang from "../pages/user/Keranjang";
 
 export default function SetUpRouter() {
   return (
-    // <AnimatePresence>
     <Routes>
       <Route path="/auth" element={<ProtectedRoute />} />
       <Route path="/admin" element={<PrivateRoute />}>
@@ -34,7 +33,6 @@ export default function SetUpRouter() {
       </Route>
       <Route path="/" element={<LayoutUser />}>
         <Route index element={<Home />} />
-        {/* <Route path="kategori" element={<Kategori />} /> */}
         <Route path="produk" element={<LayoutProduk />} />
         <Route path="produk/:id" element={<Detail />} />
         <Route path="keranjang" element={<Keranjang />} />

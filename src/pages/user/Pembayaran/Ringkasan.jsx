@@ -1,8 +1,8 @@
 import { FormatRupiah } from "@arismun/format-rupiah";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React from "react";
+import { useLocation } from "react-router-dom";
 
-export default function Ringkasan({ total, metode, handleOnclick }) {
+export default function Ringkasan({ state, metode, handleOnclick }) {
   return (
     <div
       className={`stick top-20  lg:p-2 p-3 border lg:sticky  bg-white lg:left-auto  bottom-0 left-0 lg:w-[325px] w-full    rounded-lg  transition-all duration-75 ease-in`}
@@ -12,9 +12,11 @@ export default function Ringkasan({ total, metode, handleOnclick }) {
       </p>
       <div className=" text-[14px] font-medium">
         <p className="flex  justify-between">
-          Total Harga (10 barang)
+          Total Harga ({state.beli ? 1 : state.cart.keranjang.length})
           <span className="font-bold">
-            <FormatRupiah value={total.total} />{" "}
+            <FormatRupiah
+              value={state.beli ? state.beli.harga : state?.cart?.total}
+            />
           </span>
         </p>
         {metode && (

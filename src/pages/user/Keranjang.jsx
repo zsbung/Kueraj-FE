@@ -2,11 +2,10 @@ import { FormatRupiah } from "@arismun/format-rupiah";
 import React, { useState } from "react";
 import { IoIosCart } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import Skeleton from "../../../components/loading/Skeleton";
-import "../../../components/loading/loading.css";
-import GoToTop from "../../../helpers/GoToTop";
-import Fetcher from "../../../utils/Fetcher";
-import CardKeranjang from "./CardKeranjang";
+import Skeleton from "../../components/loading/Skeleton";
+import Fetcher from "../../utils/Fetcher";
+import GoToTop from "../../helpers/GoToTop";
+import CardKeranjang from "../../components/card/CardKeranjang";
 export default function Keranjang() {
   const { data, loading, error, setFetched } = Fetcher("checkoutBarang");
   const [check, setCheck] = useState(true);
@@ -70,7 +69,9 @@ export default function Keranjang() {
                   </div>
                 </div>
                 <button
-                  onClick={() => navigate("/pembayaran", { state: data })}
+                  onClick={() =>
+                    navigate("/pembayaran", { state: { cart: data } })
+                  }
                   className="btn px-3 py-2 mt-5 rounded-lg text-white    w-full flex "
                 >
                   Checkout

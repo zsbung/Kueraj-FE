@@ -1,8 +1,9 @@
 import React from "react";
 import "swiper/css";
 import WelcomeUser from "../../components/welcome/WelcomeUser";
-import ProdukHome from "./Home/ProdukHome";
-import Rekomendasi from "./Home/Rekomendasi";
+import ProdukHome from "../../components/ProdukHome";
+import Rekomendasi from "../../components/Rekomendasi";
+import GoToTop from "../../helpers/GoToTop";
 export default function Home() {
   const animation = {
     initial: {
@@ -31,6 +32,7 @@ export default function Home() {
   };
   return (
     <>
+      <GoToTop />
       <div className="min-h-screen pb-12 flex flex-col gap-y-5">
         <WelcomeUser />
         <Rekomendasi />

@@ -42,7 +42,7 @@ export default function Navbar() {
     <div
       className={`${
         scroll ? " bg-white/70 backdrop-blur-sm  " : " bg-transparent"
-      } sticky top-0 z-50  w-full transition-all duration-200 ease-out gap-x-5  font-semibold px-[10px] lg:px-[70px] py-4  items-center tex-md  text-text flex `}
+      } sticky top-0 z-[9999]  w-full transition-all duration-200 ease-out gap-x-5 h-20 font-semibold px-[10px] lg:px-[70px] py-3  items-center tex-md  text-text flex `}
     >
       <div className="w-[10%] ">
         <button onClick={() => navigate("/")}>BB</button>
@@ -66,9 +66,9 @@ export default function Navbar() {
           ))}
         </ul>
         <div
-          className={` w-[60%]  items-center gap-x-5  ease-in-out    flex justify-end relative`}
+          className={` w-[60%]  items-center gap-x-5  ease-in-out     flex justify-end relative`}
         >
-          <FormNavbar search={search} setSearch={setSearch} />
+          {/* <FormNavbar search={search} setSearch={setSearch} /> */}
           {Auth.isAuthorization() && (
             <NavLink to={`keranjang`}>
               <Keranjang />

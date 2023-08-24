@@ -2,7 +2,7 @@ import { FormatRupiah } from "@arismun/format-rupiah";
 import React, { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { RiDeleteBin5Fill } from "react-icons/ri";
-import ModalHapus from "../../../components/ModalHapus";
+import ModalHapus from "../ModalHapus";
 export default function CardKeranjang({ cart, setFetched }) {
   const [show, setShow] = useState({
     modal: false,

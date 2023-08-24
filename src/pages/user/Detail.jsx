@@ -223,8 +223,11 @@ export default function Detail() {
                 </div>
                 <div className="flex justify-start   gap-x-2  rounded-lg px-3 lg:px-0 py-5 lg:py-0  items-center  bg-white     font-medium  text-[16px] lg:relative fixed lg:left-0 right-2 left-2 bottom-0">
                   <button
-                    // onClick={() => navigate(`/pembayaran`)}
-                    onClick={() => console.log(form)}
+                    onClick={() =>
+                      navigate("/pembayaran", {
+                        state: { beli: produk.produk },
+                      })
+                    }
                     className="btn lg:w-28 w-1/2 px-10 lg:py-3 py-2  tracking-wider text-white rounded-xl gap-x-1"
                   >
                     Beli
