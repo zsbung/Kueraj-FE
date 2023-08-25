@@ -50,7 +50,6 @@ export default function Detail() {
             </>
           )}
         </span>
-        {/* <div className="flex w-full relative lg:flex-row flex-col  mt-5  h-full gap-y-2 lg:h-[35rem] gap-x-7"> */}
         <div className="grid   lg:grid-cols-2 relative lg:gap-x-5">
           <div className=" top-20 col-span-2 lg:col-span-1 lg:p-2 p-3 border lg:sticky  bg-white lg:left-auto   left-0   rounded-lg flex flex-col gap-y-4  lg:min-h-screen transition-all duration-75 ease-in">
             {loading ? (

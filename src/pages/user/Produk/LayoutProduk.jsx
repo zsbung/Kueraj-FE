@@ -10,8 +10,6 @@ export default function LayoutProduk() {
   const [data, setDatas] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [count, setCount] = useState(20);
-  const [skip, setSkip] = useState(0);
   const [kategori, setKategori] = useState("");
   const [harga_min, setHarga_min] = useState("");
   const [harga_max, setHarga_max] = useState("");
@@ -68,12 +66,10 @@ export default function LayoutProduk() {
     setJenis("");
     setHarga_max("");
     setHarga_min("");
-    setSkip(0);
   };
 
   const handleGetKategori = (e, id) => {
     e.preventDefault();
-    // setDatas([]);
     setKategori(id);
   };
   return (
@@ -121,7 +117,6 @@ export default function LayoutProduk() {
             setDatas={setDatas}
             data={data}
             handleGetData={handleGetData}
-            setSkip={setSkip}
           />
           {total !== data?.length && (
             <div className="flex justify-center">

@@ -14,24 +14,6 @@ import Fetcher from "../../utils/Fetcher";
 import Skeleton from "../../components/loading/Skeleton";
 import { MdSell } from "react-icons/md";
 export default function Dashboard() {
-  const cards = [
-    {
-      name: "admin",
-      total: 8,
-    },
-    {
-      name: "pengguna",
-      total: 10000000,
-    },
-    {
-      name: "pembeli",
-      total: 900,
-    },
-    {
-      name: "pendapatan",
-      total: <FormatRupiah value={1000000} />,
-    },
-  ];
   const mockupData = [
     {
       name: "T-Shirt",
@@ -92,7 +74,6 @@ export default function Dashboard() {
   ];
 
   const { data, loading, error } = Fetcher("dashboard");
-  console.log(data);
   return (
     <>
       <div className="flex  justify-center  gap-x-2">
@@ -130,9 +111,6 @@ export default function Dashboard() {
       </div>
 
       <div className="flex flex-wrap justify-center gap-x-2 mt-4">
-        {/* {data.map((card, index) => (
-          <CardDashboard key={index} total={card.total} name={card.name} />
-        ))} */}
         {loading ? (
           [1, 2, 3, 4].map((m) => (
             <Skeleton key={m} style={`w-60 h-32 rounded-lg`} />

@@ -20,12 +20,7 @@ export default function Keranjang() {
         {data.total == 0 && (
           <div className="flex justify-center">Tidak ada produk</div>
         )}
-        {/* {loading && !data && (
-        <div className="flex justify-center gap-x-5 ">
-          <div className="lg:w-[50%] skeleton h-[20rem] rounded-md"></div>
-          <div className="lg:w-[30%] skeleton h-[12rem] rounded-md"></div>
-        </div>
-      )} */}
+   
         {!data || loading ? (
           <div className="flex gap-x-5 justify-center">
             <Skeleton style={`lg:w-[50%] h-72 rounded-md`} />
@@ -53,13 +48,6 @@ export default function Keranjang() {
                 <p className="font-semibold mb-2 text-start  text-[18px] tracking-wider capitalize">
                   Ringkasan
                 </p>
-                {/* <div className="flex gap-x-2 items-center">
-                <input
-                  type="checkbox"
-                  className="h-4 w-4 cursor-pointer focus:text-primary"
-                />
-                <label htmlFor="">Pilih semua</label>
-              </div> */}
                 <div className=" text-[14px] font-medium">
                   <div className="flex  justify-between">
                     <p>Total Harga ({data?.keranjang?.length} barang) </p>

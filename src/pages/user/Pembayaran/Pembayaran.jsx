@@ -9,12 +9,6 @@ import Barang from "./Barang";
 import Pemesan from "./Pemesan";
 import Ringkasan from "./Ringkasan";
 export default function Pembayaran() {
-  const [check, setCheck] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [show, setShow] = useState({
-    modal: false,
-    url: "",
-  });
   let navigate = useNavigate();
   const { state } = useLocation();
 
@@ -38,10 +32,7 @@ export default function Pembayaran() {
     });
   };
   const [message, setMessage] = useState("");
-  // const handleOnclick = (e) => {
-  //   e.preventDefault();
-  //   console.log(form);
-  // };
+
   const handleOnclick = (e) => {
     e.preventDefault();
     const {
