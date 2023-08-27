@@ -187,7 +187,7 @@ export default function Detail() {
                     </label>
                   </div>
                 </div>
-                <div className="flex lg:justify-start   lg:gap-x-2 justify-between items-center">
+                <div className="flex lg:justify-start  gap-x-2  lg:gap-x-2 justify-between items-center">
                   <div className="w-[8rem] h-12 border mt-2 items-center border-abu rounded-xl bg-abu flex ">
                     <button
                       disabled={count == 1 && true}

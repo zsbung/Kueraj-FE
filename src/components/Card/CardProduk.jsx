@@ -21,14 +21,11 @@ export default function CardProduk({ produk }) {
             backgroundImage: `url(${produk?.foto})`,
           }}
         >
-          {produk?.stok == 0 ||
-            (produk?.status == 0 && (
-              <div className="absolute w-full h-full bg-black/70 flex justify-center items-center top-0 left-0 right-0 bottom-0 ">
-                <h1 className="text-md text-primary font-semibold">
-                  Stok Habis
-                </h1>
-              </div>
-            ))}
+          {produk?.status == 0 && produk?.stok == 0 && (
+            <div className="absolute w-full h-full bg-black/70 flex justify-center items-center top-0 left-0 right-0 bottom-0 ">
+              <h1 className="text-md text-primary font-semibold">Stok Habis</h1>
+            </div>
+          )}
           <div className="absolute right-2 top-2   group  text-transparent/60  translinear hover:text-red-600 hover:scale-125  p-1">
             <VscHeartFilled className="lg:text-[20px]" />
           </div>

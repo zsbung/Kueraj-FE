@@ -36,7 +36,7 @@ export default function ModalTambahKategori({
   const handleFoto = async (e) => {
     const imageUpload = e.target.files[0];
     if (!imageUpload) return;
-    const storageRef = ref(storage, `kategori/${imageUpload.name + v4()}`);
+    const storageRef = ref(storage, `kategori_agis/${imageUpload.name + v4()}`);
     uploadBytes(storageRef, imageUpload).then(() => {
       getDownloadURL(storageRef).then((url) => {
         setForm({ ...form, image: url });

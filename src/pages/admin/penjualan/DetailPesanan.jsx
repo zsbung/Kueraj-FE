@@ -1,8 +1,8 @@
 import { FormatRupiah } from "@arismun/format-rupiah";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import Skeleton from "../../../components/loading/Skeleton";
-import Fetcher from "../../../utils/Fetcher";
+import axiosInstance from "../../../configs/AxiosInstance";
 
 export default function DetailPesananAdmin() {
   const { id } = useParams();
@@ -15,10 +15,41 @@ export default function DetailPesananAdmin() {
     alamat,
     nama_depan,
     nama_belakang,
+    transaksi,
     kodepos,
   } = state;
 
-  const { data, loading } = Fetcher(`detailPesananAdmin/${id}`);
+  const [data, setDatas] = useState([]);
+  const [fetched, setFetched] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setFetched(true);
+    setLoading(true);
+    axiosInstance
+      .get(`detailPesananAdmin/${id}`)
+      .then((res) => {
+        setDatas(res.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log("gagal mendapatkan data...");
+        setLoading(false);
+      });
+  }, [fetched]);
+
+  const handleUbahStatus = async (e) => {
+    e.preventDefault();
+    await axiosInstance
+      .put(`updatePesanan/${id}`, {
+        pemesan: e.target.value,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setFetched(!fetched);
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <>
       <div className="flex w-full gap-x-5">
@@ -209,14 +240,15 @@ export default function DetailPesananAdmin() {
                     </td>
                     <td colSpan={2} className="text-center ">
                       <select
-                        defaultValue={state.transaksi.status_pemesanan}
-                        onChange={(e) => console.log(e.target.value)}
+                        defaultValue={transaksi.status_pemesanan}
+                        onChange={(e) => handleUbahStatus(e)}
                         name=""
                         className="w-full outline-none border-2 rounded-md"
                         id=""
                       >
                         <option value="Menunggu Kurir">Menunggu</option>
-                        <option value="Menunggu Kurir">Terkirim</option>
+                        <option value="Sedang dikirim">Sedang dikirim</option>
+                        <option value="sampai">sampai</option>
                       </select>
                     </td>
                   </tr>
