@@ -45,7 +45,7 @@ export default function Navbar() {
       } sticky top-0 z-[9999]  w-full transition-all duration-200 ease-out gap-x-5 h-20 font-semibold px-[10px] lg:px-[70px] py-3  items-center tex-md  text-text flex `}
     >
       <div className="w-[10%] ">
-        <button onClick={() => navigate("/")}>BB</button>
+        <button onClick={() => navigate("/")}>Toko Kue RAJ</button>
       </div>
       <div className="flex  justify-end lg:justify-between w-full">
         <ul className="lg:flex  w-[40%] hidden gap-x-7 items-center   justify-start">
@@ -89,12 +89,23 @@ export default function Navbar() {
                       Dashboard
                     </Link>
                   )}
-                  <Link
-                    to={`/riwayat`}
-                    className=" p-2 text-black hover:text-primary  hover:bg-base1 hover:underline"
-                  >
-                    Riwayat
-                  </Link>
+                  {Auth.getRoleAs() == 3 && (
+                    <Link
+                      to={`/kasir`}
+                      className=" p-2 text-black hover:text-primary  hover:bg-base1 hover:underline"
+                    >
+                      Kasir
+                    </Link>
+                  )}
+                  {Auth.getRoleAs() != 3 && (
+                    <Link
+                      to={`/riwayat`}
+                      className=" p-2 text-black hover:text-primary  hover:bg-base1 hover:underline"
+                    >
+                      Riwayat
+                    </Link>
+                  )}
+
                   <button
                     onClick={logOut}
                     className=" p-2 text-black text-left hover:text-primary  hover:bg-base1 hover:underline"

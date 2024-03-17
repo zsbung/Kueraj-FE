@@ -234,45 +234,10 @@ export default function DetailPesanan() {
                       <p className="opacity-95 text-sm">
                         jumlah : {m.jml_pesanan}
                       </p>
-                      <div className="py-1">
-                        <button
-                          onClick={() =>
-                            setShow({
-                              modal: !show.modal,
-                              data: {
-                                produkId: m.produk.id,
-                                pemesanId: m.pemesan_id,
-                                namaProduk: m.produk.nama,
-                              },
-                            })
-                          }
-                          className="btn px-[3px] text-sm py-[2px] rounded-md"
-                        >
-                          Rating
-                        </button>
-                      </div>
-                      <p className="text-sm">{m?.produk?.rating?.komentar}</p>
+                    
                     </div>
                   </div>
-                  <div className="flex gap-x-2 flex-col justify-end  items-end px-2   ">
-                    <div className="flex gap-x-[1px]">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <span
-                          key={star}
-                          className={
-                            star <= m.produk.rating
-                              ? "text-yellow-500 cursor-pointer"
-                              : "text-black"
-                          }
-                        >
-                          <FaStar size={10} />
-                        </span>
-                      ))}
-                    </div>
-                    <p className="">
-                      <FormatRupiah value={m.total_harga} />
-                    </p>
-                  </div>
+                  
                 </div>
               ))
             ) : (

@@ -14,7 +14,7 @@ export default function About() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const whatsapp = `https://api.whatsapp.com/send?phone=6282281788810&text=Nama%3A%20${inputValue.nama}%0APesan%3A%20${inputValue.pesan}`;
+    const whatsapp = `https://api.whatsapp.com/send?phone=6281398253889&text=Nama%3A%20${inputValue.nama}%0APesan%3A%20${inputValue.pesan}`;
     window.open(whatsapp, "_blank");
   };
   return (
@@ -23,14 +23,10 @@ export default function About() {
         <div className="flex lg:flex-row flex-col  gap-x-2 ">
           <div className="lg:w-1/2 justify-center flex flex-col  gap-y-3 ">
             <h1 className="w-full text-[2rem] font-bold text-center capitalize">
-              <span className="">BungaBusana</span>
+              <span className="">Toko Kue RAJ</span>
             </h1>
             <p className="lg:text-[1.2rem]  font-medium ">
-              Destinasi mode pilihan Anda untuk pakaian pria dan wanita terbaru
-              dan terkini. Di Bunga Busana, kami berkomitmen untuk memberikan
-              Anda pengalaman berbelanja online yang menarik dan memuaskan,
-              dengan koleksi pakaian yang stylish, nyaman, dan berkualitas
-              tinggi.
+            Toko Kue RAJ adalah toko kue yang menghadirkan keajaiban kuliner dengan sentuhan yang unik dan inovatif. Didirikan dengan semangat untuk menghadirkan kebahagiaan dalam setiap potongan kue, kami menggabungkan keahlian kuliner yang tinggi dengan bahan-bahan berkualitas terbaik untuk menciptakan karya seni kuliner yang memukau.
             </p>
           </div>
           <div className="lg:w-1/2 hidden  lg:flex justify-center">
@@ -132,7 +128,7 @@ export default function About() {
           <iframe
             className="mb-5"
             id="alamat"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1994.24258932202!2d102.43995398283!3d-1.4811918716540493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2ec0013949851b%3A0xa73c620faccaddac!2sTugu%20Sultan%20Thaha%20Tebo!5e0!3m2!1sid!2sid!4v1657069223403!5m2!1sid!2sid"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15860.509030273783!2d107.02497893955079!3d-6.377569299999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6997a0d10838d7%3A0x4030a019051b8e91!2sRaj%20Cake%20And%20Cookies!5e0!3m2!1sid!2sid!4v1693138150989!5m2!1sid!2sid"
             width="100%"
             height="450"
             allowFullScreen=""

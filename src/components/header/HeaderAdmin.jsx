@@ -32,6 +32,12 @@ export default function HeaderAdmin() {
                     >
                       Home
                     </Link>
+                    <Link
+                      to={`/kasir`}
+                      className=" p-2 text-black hover:text-primary  hover:bg-base1 hover:underline"
+                    >
+                      Kasir
+                    </Link>
 
                     <button
                       onClick={() => Auth.signOut(navigate)}

@@ -74,6 +74,7 @@ export default function Dashboard() {
   ];
 
   const { data, loading, error } = Fetcher("dashboard");
+
   return (
     <>
       <div className="flex  justify-center  gap-x-2">
@@ -97,16 +98,16 @@ export default function Dashboard() {
               ) : (
                 <p className="text-2xl font-bold">Welcome, {data.me}</p>
               )}
-              <p className="text-md font-medium">Sign Out</p>
+              {/* <p className="text-md font-medium">Sign Out</p> */}
             </div>
           </motion.div>
-          <div className="flex lg:w-[30%] h-full items-center gap-x-2">
+          {/* <div className="flex lg:w-[30%] h-full items-center gap-x-2">
             <img
               src={hi}
               alt="Picture of the author"
               className="h-full w-full "
             />
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -120,31 +121,27 @@ export default function Dashboard() {
             <CardDashboard
               icon={<FaUserAlt size={25} />}
               name={"pengguna"}
-              total={12}
+              total={data?.pengguna}
             />
             <CardDashboard
               icon={<FaMoneyCheckAlt size={25} />}
               name={"pendapatan"}
-              total={1350000}
+              total={data?.pendapatan}
             />
             <CardDashboard
               icon={<FaUserTag size={25} />}
               name={"pembeli"}
-              total={12}
+              total={data?.pembeli}
             />
             <CardDashboard
               icon={<MdSell size={25} />}
               name={"Produk Terjual"}
-              total={80}
+              total={data?.terjual}
             />
-            {/* <CardDashboard name={"pengguna"} total={data.pengguna} />
-            <CardDashboard name={"pendapatan"} total={data.pendapatan} />
-            <CardDashboard name={"pembeli"} total={data.pembeli} />
-            <CardDashboard name={"terjual"} total={data.terjual} /> */}
           </>
         )}
       </div>
-      <div className="mt-5">
+      {/* <div className="mt-5">
         <p className="font-bold mb-2">
           10 produk yang paling banyak dibeli minggu ini
         </p>
@@ -176,7 +173,7 @@ export default function Dashboard() {
             ))}
           </tbody>
         </table>
-      </div>
+      </div> */}
     </>
   );
 }

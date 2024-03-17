@@ -5,10 +5,11 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { ImSpinner9 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import ApiAuth from "../../api/auth.api";
+import Auth from "../../utils/Auth";
 export default function Form() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState({
     errorEmail: "",
     errorPassword: "",
@@ -47,7 +48,11 @@ export default function Form() {
     ApiAuth.Login(email, password)
       .then((res) => {
         setLogin(false);
-        navigate("/");
+        if (Auth.getRoleAs() == 3) {
+          navigate("/kasir");
+        } else {
+          navigate("/");
+        }
       })
       .catch((err) => {
         toast.error(err);
@@ -87,7 +92,7 @@ export default function Form() {
           </div>
           <div className="relative group h-10 w-[20rem]">
             <input
-              type={`${showPassword ? "password" : "text"}`}
+              type={`${showPassword ? "text" : "password"}`}
               id="password"
               className="border-b-2 peer  transition-all duration-200 ease-in-out outline-none border-gray-300  py-2 w-full"
               value={password}
@@ -109,7 +114,7 @@ export default function Form() {
               )}
             </div>
             <div
-              onClick={handlePasswordChange}
+              onClick={() => setShowPassword(!showPassword)}
               className="absolute cursor-pointer text-xl pr-2 text-gray-500 right-0 top-1/2 peer-focus:text-primary -translate-y-1/2 transisi"
             >
               {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}

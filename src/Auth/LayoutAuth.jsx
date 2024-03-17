@@ -33,7 +33,6 @@ export default function LayoutAuth() {
         <div className=" w-1/2 hidden relative  bg-primary  justify-center items-center  lg:flex ">
           <img className="h-[90%]" src={fotoLogin} alt="" />
         </div>
-
         <AnimatePresence>
           {login && <Login transition={transition} setLogin={setLogin} />}
         </AnimatePresence>

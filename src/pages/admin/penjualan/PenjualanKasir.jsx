@@ -1,28 +1,18 @@
 import { FormatRupiah } from "@arismun/format-rupiah";
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import ModalHapus from "../../../components/ModalHapus";
+import SearchProduk from "../../../components/Search/SearchProduk";
 import LoadingTable from "../../../components/loading/LoadingTable";
 import Fetcher from "../../../utils/Fetcher";
-import { MdFileDownload } from "react-icons/md";
 
-export default function Penjualan() {
-  const { loading, data, error, setFetched } = Fetcher("listPemesan");
-  const [show, setShow] = useState({
-    item: {},
-    modalHapus: false,
-  });
+export default function PenjualanKasir() {
+  const { loading, data, error } = Fetcher("listPemesanKasir");
   let navigate = useNavigate();
-
   return (
-    <>
-      {show.modalHapus && (
-        <ModalHapus
-          setModal={setShow}
-          datas={show.data}
-          setFetched={setFetched}
-        />
-      )}
+    <div className="content my-5">
+      <h1 className="text-center my-5 font-bold text-3xl">
+        Daftar Pesanan Langsung
+      </h1>
 
       {error && error}
 
@@ -57,28 +47,18 @@ export default function Penjualan() {
                   <td className=" text-center capitalize">
                     {pemesan.transaksi?.metode_pembayaran}
                   </td>
+
                   <td className="  text-center py-2">
                     <div className="flex items-center gap-1 justify-center ">
                       <button
                         onClick={() =>
-                          navigate(`/admin/detail-pemesanan/${pemesan.id}`, {
+                          navigate(`/kasir/detail-kasir/${pemesan.id}`, {
                             state: pemesan,
                           })
                         }
                         className="btn py-1 px-2 rounded-lg capitalize"
                       >
                         Lihat
-                      </button>
-                      <button
-                        onClick={() =>
-                          setShow({
-                            modalHapus: !show.modalHapus,
-                            data: { item: "listPemesan", id: pemesan.id },
-                          })
-                        }
-                        className="btn py-1 px-2 rounded-lg capitalize"
-                      >
-                        hapus
                       </button>
                     </div>
                   </td>
@@ -87,6 +67,6 @@ export default function Penjualan() {
           </tbody>
         </table>
       )}
-    </>
+    </div>
   );
 }

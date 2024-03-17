@@ -14,13 +14,14 @@ export default function Pembayaran() {
 
   const [form, setForm] = useState({
     alamat: "",
-    kota: "",
     nama_depan: "",
     nama_belakang: "",
     metode_pembayaran: "",
     nohp: "0822121212",
     catatan: "",
-    provinsi: 1,
+    provinsi: "jawa barat",
+    kota:"Bekasi",
+    kodepos:"",
     tanggal_pemesanan: moment().format("LL"),
   });
   const { beli } = state;

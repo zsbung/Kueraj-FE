@@ -11,7 +11,7 @@ import BtnCart from "../buttons/BtnMain";
 export default function CardProduk({ produk }) {
   const { animate, handleKeranjang, image } = useContext(MyContext);
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <Toaster />
       {animate && <CartAnimation img={image} />}
       <div className="w-full lg:h-[24rem]  h-[18rem] hover:border-[1px] border   rounded-xl overflow-hidden cursor-pointer hover:shadow-md  relative translinear bg-white  flex flex-col">
@@ -21,7 +21,7 @@ export default function CardProduk({ produk }) {
             backgroundImage: `url(${produk?.foto})`,
           }}
         >
-          {produk?.status == 0 && produk?.stok == 0 && (
+          {produk?.status == 0 && (
             <div className="absolute w-full h-full bg-black/70 flex justify-center items-center top-0 left-0 right-0 bottom-0 ">
               <h1 className="text-md text-primary font-semibold">Stok Habis</h1>
             </div>
@@ -32,29 +32,13 @@ export default function CardProduk({ produk }) {
         </div>
         <div className="lg:h-[40%] h-[50%]  p-2 text-text flex flex-col justify-between  lg:text-[13px] text-[11px]   lg:gap-y-[3px]">
           <Link to={`/produk/${produk.id}`} className="flex flex-col   group">
-            <div className="flex gap-x-2 justify-between font-semibold tracking-wide">
+            <div className="flex gap-y-2 flex-col justify-between font-semibold tracking-wide">
               <div className="">
-                <p className="group-hover:underline ">
-                  {produk.nama} <span>({produk.jenis})</span>
-                </p>
+                <p className="group-hover:underline ">{produk.nama}</p>
                 <div className="flex items-center gap-x-1">
                   <p className="text-[10px] p-[2px]  font-normal inline-flex border bg-abu/10 rounded-lg    ">
                     {produk.kategori?.name}
                   </p>
-                  <div className="flex gap-x-[1px] lg:text-[15px]">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <span
-                        key={star}
-                        className={
-                          star <= produk.rating
-                            ? "text-yellow-500 cursor-pointer"
-                            : "text-black"
-                        }
-                      >
-                        <AiFillStar />
-                      </span>
-                    ))}
-                  </div>
                 </div>
               </div>
               <p>

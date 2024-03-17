@@ -11,10 +11,10 @@ export default function WelcomeUser() {
         className="w-1/2 flex flex-col gap-y-3 z-10 text-white"
       >
         <h1 className="font-bold text-sm lg:font-extrabold lg:text-4xl">
-          Welcome <span className="block">BungaBusana Fashion</span>
+          Welcome <span className="block">Toko Kue RAJ</span>
         </h1>
         <p className="font-semibold text-sm lg:text-2xl">
-          Menyediakan berbagai macam kebutuhan fashion
+          Tempat di mana rasa dan kreativitas berkumpul untuk menciptakan kelezatan yang tak terlupakan.
         </p>
       </motion.div>
       <motion.div
@@ -23,12 +23,12 @@ export default function WelcomeUser() {
         transition={{ duration: 0.6, ease: "easeInOut" }}
         className="w-1/2 flex lg:justify-end justify-center z-10 overflow-hidden"
       >
-        <img src={img} className="" alt="" />
+        {/* <img src={img} className="" alt="" /> */}
       </motion.div>
       <div className="absolute w-full top-0 left-0 -z-0  opacity-50  h-full ">
         <img
           className="h-full w-full"
-          src="https://images.unsplash.com/photo-1525562723836-dca67a71d5f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+          src="https://firebasestorage.googleapis.com/v0/b/bungabusanaa-7e56d.appspot.com/o/asset_agis%2Fbanner2.jpg?alt=media&token=a7e6fb7f-9cf4-457c-9b7e-aaf5ed82afc7"
           alt=""
         />
       </div>

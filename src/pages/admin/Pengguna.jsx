@@ -10,9 +10,9 @@ export default function Pengguna() {
   let navigate = useNavigate();
   return (
     <>
-      <div className="flex justify-start mb-5 w-full">
+      {/* <div className="flex justify-start mb-5 w-full">
         <SearchProduk text={"Cari ..."} name={"Kategori..."} />
-      </div>
+      </div> */}
 
       {error && error}
 

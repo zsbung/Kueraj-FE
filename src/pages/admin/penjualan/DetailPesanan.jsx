@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import Skeleton from "../../../components/loading/Skeleton";
 import axiosInstance from "../../../configs/AxiosInstance";
+import { MdFileDownload } from "react-icons/md";
+import jsPDF from "jspdf";
+import "jspdf-autotable"; // Im
 
 export default function DetailPesananAdmin() {
   const { id } = useParams();
@@ -49,6 +52,20 @@ export default function DetailPesananAdmin() {
         setFetched(!fetched);
       })
       .catch((err) => console.log(err));
+  };
+  const exportPdf = () => {
+    const doc = new jsPDF({ orientation: "portrait" });
+    doc.text("Detail Pesanan Kue Raj", 10, 10);
+    const fontSize = 12;
+    const x = 10; // X-coordinate
+    let y = 20; // Initial Y-coordinate
+    doc.setFontSize(fontSize);
+
+    doc.autoTable({
+      html: "#my-table",
+    });
+
+    doc.save("detail.pdf");
   };
   return (
     <>
@@ -182,13 +199,42 @@ export default function DetailPesananAdmin() {
               <FormatRupiah value={state.transaksi.harga_pesanan} />
             </p>
           </div>
+
+          <div className="">
+            <label className="font-medium block" htmlFor="">
+              Status Pemesanan :
+            </label>
+
+            <select
+              defaultValue={transaksi.status_pemesanan}
+              onChange={(e) => handleUbahStatus(e)}
+              name=""
+              className="w-full outline-none border-2 rounded-md"
+              id=""
+            >
+              <option value="Menunggu Kurir">Menunggu</option>
+              <option value="Sedang dikirim">Sedang dikirim</option>
+              <option value="sampai">sampai</option>
+            </select>
+          </div>
         </div>
         <div className="w-1/2">
           {!data || loading ? (
             <Skeleton style={`w-full h-56 rounded-md`} />
           ) : (
             <>
-              <table className="table-auto w-full font-medium  border-collapse ">
+              {data && (
+                <button
+                  onClick={exportPdf}
+                  className="py-1 px-2 font-medium text-sm flex items-center gap-x-1 rounded-md btn-primary"
+                >
+                  Cetak <MdFileDownload />
+                </button>
+              )}
+              <table
+                id="my-table"
+                className="table-auto w-full font-medium  border-collapse "
+              >
                 <thead className="border">
                   <tr className="bg-gray-200 capitalize border ">
                     <th className=" px-2 py-1 text-center">Foto</th>
@@ -227,31 +273,22 @@ export default function DetailPesananAdmin() {
                     </td>
                   </tr>
                   <tr className="capitalize  border">
-                    <td colSpan={2} className="py-1 px-1 text-left">
-                      Pembayaran melalui :
+                    <td colSpan={3} className="py-1 px-1 text-left">
+                      Status Pemesanan :
                     </td>
-                    <td colSpan={2} className="text-center ">
-                      {state.transaksi.metode_pembayaran}
+                    <td colSpan={1} className="text-center ">
+                      {state.transaksi.status_pemesanan}
                     </td>
                   </tr>
                   <tr className="capitalize  border">
-                    <td colSpan={2} className="py-1 px-1 text-left">
-                      Status Pemesanan :
+                    <td colSpan={3} className="py-1 px-1 text-left">
+                      Pembayaran melalui :
                     </td>
-                    <td colSpan={2} className="text-center ">
-                      <select
-                        defaultValue={transaksi.status_pemesanan}
-                        onChange={(e) => handleUbahStatus(e)}
-                        name=""
-                        className="w-full outline-none border-2 rounded-md"
-                        id=""
-                      >
-                        <option value="Menunggu Kurir">Menunggu</option>
-                        <option value="Sedang dikirim">Sedang dikirim</option>
-                        <option value="sampai">sampai</option>
-                      </select>
+                    <td colSpan={1} className="text-center ">
+                      {state.transaksi.metode_pembayaran}
                     </td>
                   </tr>
+
                   <tr className="capitalize  border">
                     <td colSpan={2} className="py-1 px-1 text-left">
                       Total Harga :

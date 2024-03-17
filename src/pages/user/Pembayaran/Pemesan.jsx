@@ -5,62 +5,33 @@ import { CONSTANT } from "../../../utils/Constant";
 import PemesanSebelum from "./PemesanSebelum";
 export default function Pemesan({ handleOnChange, setForm, form }) {
   const [prev, setPrev] = useState(false);
-  const [load, setLoad] = useState({
-    prov: false,
-    city: false,
-  });
-  const [post, setPost] = useState("");
-  const [prov, setProv] = useState([]);
-  const [city, setCity] = useState([]);
-  const [selectProv, setSelectProv] = useState(1);
 
-  async function getProvince() {
-    setLoad({ ...load, prov: true });
-    try {
-      const response = await axios.get(`${CONSTANT.BASEURL}province`);
-      setProv(response.data.rajaongkir.results);
-      setLoad({ ...load, prov: false });
-    } catch (error) {
-      const { message } = error.response.data;
-      console.log(error);
-      setLoad({ ...load, prov: false });
-    }
-  }
+const kelurahan = [
+  {
+    nama:"Aren Jaya",
+    kodepos : "17111"
+  },
+  {
+    nama:"Bekasi Jaya",
+    kodepos : "17112"
+  },
+  {
+    nama:"Margahayu",
+    kodepos : "17113"
+  },
+  {
+    nama:"Duren Raya",
+    kodepos : "17111"
+  },
+]
 
-  async function getCity() {
-    setLoad({ ...load, city: true });
-    await axios
-      .get(`${CONSTANT.BASEURL}city?provinsi=${selectProv}`)
-      .then((res) => {
-        setCity(res.data.rajaongkir.results);
-        setLoad({ ...load, city: false });
-      });
-  }
-
-  const handleCity = () => {
-    const selectedValue = event.target.value;
-    const [city_name, province, postal_code] = selectedValue.split(",");
-    setPost(postal_code);
-    setForm({
-      ...form,
-      provinsi: province,
-      kota: city_name,
-      kodepos: postal_code,
-    });
-  };
-  useEffect(() => {
-    getProvince();
-  }, []);
-
-  useEffect(() => {
-    getCity();
-  }, [selectProv]);
+ 
 
   return (
     <div className=" w-full border p-3  rounded-lg">
       <div className="w-full flex justify-between">
         <h1 className="title mb-2">Informasi Pemesan</h1>
-        <p className="capitalize text-[12px] font-semibold mb-2  flex items-center gap-x-1">
+        {/* <p className="capitalize text-[12px] font-semibold mb-2  flex items-center gap-x-1">
           <input
             required
             onClick={() => setPrev(!prev)}
@@ -70,7 +41,7 @@ export default function Pemesan({ handleOnChange, setForm, form }) {
             id=""
           />
           pemesan sebelumnya
-        </p>
+        </p> */}
       </div>
 
       <form action="" className="grid gap-x-5 gap-y-3 font-medium grid-cols-2">
@@ -126,58 +97,45 @@ export default function Pemesan({ handleOnChange, setForm, form }) {
           <label className="block" htmlFor="">
             provinsi*
           </label>
-          {load.prov && <Skeleton style={`h-9 rounded-lg w-full`} />}
-          {!load.prov && (
-            <select
-              name="provinsi"
-              className="border h-9 rounded-lg border-solid w-full outline-none"
-              onChange={(e) => setSelectProv(Number(e.target.value))}
-            >
-              {prov &&
-                prov.map((m) => (
-                  <option key={m.province_id} value={m.province_id}>
-                    {m.province}
-                  </option>
-                ))}
-            </select>
-          )}
+          <input
+            required
+            name="provinsi"
+            value={"Jawa Barat"}
+            disabled
+            type="text"
+            className="formPemesan"
+          />
         </div>
         <div className="w-full">
           <label className="" htmlFor="">
             kabupaten/kota*
           </label>
-          {load.city && <Skeleton style={`h-9 rounded-lg w-full`} />}
-          {!load.city && (
-            <select
-              name="kota"
-              className="border h-9 rounded-lg border-solid w-full outline-none"
-              onChange={handleCity}
-            >
-              {city &&
-                city.map((m) => (
-                  <option
-                    key={m.city_id}
-                    value={[m.city_name, m.province, m.postal_code]}
-                  >
-                    {m.city_name}
-                  </option>
-                ))}
-            </select>
-          )}
-        </div>
-
-        <div className="w-full">
-          <label className="" htmlFor="">
-            Kode Pos*
-          </label>
           <input
             required
-            name="kodepos"
-            value={post}
+            name="kabupaten"
+            value={"Bekasi"}
             disabled
             type="text"
             className="formPemesan"
           />
+        </div>
+
+        <div className="w-full">
+        <label className="" htmlFor="">
+            Kelurahan - Kode Pos
+          </label>
+        <select
+              name="kodepos"
+              
+              className="border h-9 rounded-lg border-solid w-full outline-none"
+              onChange={handleOnChange}
+            >
+                {kelurahan.map((m)=> 
+                <option key={m.kodepos} value={`${m.nama} - ${m.kodepos}`}>
+                    {m.nama} - ({m.kodepos})
+                    </option>
+                    )}
+            </select>
         </div>
 
         <div className="w-full col-span-2">

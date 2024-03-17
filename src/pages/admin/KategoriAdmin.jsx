@@ -34,14 +34,14 @@ export default function KategoriAdmin() {
           />
         )}
       </AnimatePresence>
-      <div className="flex justify-between mb-5 w-full">
+      {/* <div className="flex justify-between mb-5 w-full">
         <SearchProduk text={"Cari Kategori..."} name={"Kategori..."} />
         <ButtonPrimary
           icon={<BiPlusCircle size={25} />}
           onclick={() => setShow({ modalTambah: !show.modalTambah })}
           text={"Tambah Kategori"}
         />
-      </div>
+      </div> */}
       {show.modalHapus && (
         <ModalHapus
           datas={show.data}

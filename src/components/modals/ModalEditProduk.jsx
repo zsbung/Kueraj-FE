@@ -38,10 +38,10 @@ export default function ModalEditProduk({ setModal, data, setFetched }) {
     harga: data?.harga,
     stok: data?.stok,
     status: data?.status,
-    ukuran_S: data?.ukuran_S,
-    ukuran_L: data?.ukuran_L,
-    ukuran_XL: data?.ukuran_XL,
-    ukuran_M: data?.ukuran_M,
+    ukuran_S: true,
+    ukuran_L: true,
+    ukuran_XL: true,
+    ukuran_M: true,
   });
   const handleOnchange = (e) => {
     const { name, value, checked, type } = e.target;
@@ -260,21 +260,7 @@ export default function ModalEditProduk({ setModal, data, setFetched }) {
                   className="outline-none border h-44 w-full rounded-lg"
                 />
               </div>
-              <div className="flex flex-col gap-y-1">
-                <label htmlFor="nama" className="block">
-                  Jenis
-                </label>
-                <select
-                  name="jenis"
-                  onChange={handleOnchange}
-                  className="w-56 h-10 rounded-md outline-none  border"
-                  id=""
-                  defaultValue={form.jenis}
-                >
-                  <option value="pria">Pria</option>
-                  <option value="wanita">Wanita</option>
-                </select>
-              </div>
+             
               <div className="flex gap-x-1">
                 <label htmlFor="nama" className="block">
                   Status
@@ -288,53 +274,7 @@ export default function ModalEditProduk({ setModal, data, setFetched }) {
                 />
               </div>
 
-              <div className="">
-                <label htmlFor="nama" className="block">
-                  Ukuran
-                </label>
-                <div className="flex gap-x-2">
-                  <div className="flex gap-x-[2px]">
-                    S
-                    <input
-                      name="ukuran_S"
-                      onChange={handleOnchange}
-                      type="checkbox"
-                      defaultChecked={ukuran_S}
-                      className=""
-                    />
-                  </div>
-                  <div className="flex gap-x-[2px]">
-                    M
-                    <input
-                      name="ukuran_M"
-                      onChange={handleOnchange}
-                      type="checkbox"
-                      defaultChecked={ukuran_M}
-                      className=""
-                    />
-                  </div>
-                  <div className="flex gap-x-[2px]">
-                    L
-                    <input
-                      name="ukuran_L"
-                      onChange={handleOnchange}
-                      type="checkbox"
-                      defaultChecked={ukuran_L}
-                      className=""
-                    />
-                  </div>
-                  <div className="flex gap-x-[2px]">
-                    XL
-                    <input
-                      name="ukuran_XL"
-                      onChange={handleOnchange}
-                      type="checkbox"
-                      defaultChecked={ukuran_XL}
-                      className=""
-                    />
-                  </div>
-                </div>
-              </div>
+              
             </div>
           </div>
           <button className="btn w-1/2 rounded-lg translinear py-2 text-lg mt-5 ">

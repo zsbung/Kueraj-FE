@@ -50,7 +50,7 @@ export default function SideBar() {
           to={"/"}
           className="bg-gradient-to-r tracking-wider text-2xl from-black to-primary bg-clip-text text-transparent font-bold text-center"
         >
-          BungaBusana
+          Toko Kue RAJ
         </Link>
       </div>
       <div className="flex flex-col gap-y-4 px-5 border-r ">

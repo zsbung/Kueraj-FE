@@ -63,10 +63,10 @@ export const nav = [
     name: "Produk",
     path: "produk",
   },
-  {
-    name: "Kategori",
-    path: "kategori",
-  },
+  // {
+  //   name: "Kategori",
+  //   path: "kategori",
+  // },
   {
     name: "Tentang",
     path: "tentang",

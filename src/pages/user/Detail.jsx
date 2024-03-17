@@ -101,20 +101,7 @@ export default function Detail() {
                   <h1 className="capitalize font-semibold text-[25px] text-start">
                     {produk?.produk?.nama}
                   </h1>
-                  <div className="flex gap-x-[1px] lg:text-[20px]">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <span
-                        key={star}
-                        className={
-                          star <= produk?.produk?.rating
-                            ? "text-yellow-500 cursor-pointer"
-                            : "text-black"
-                        }
-                      >
-                        <AiFillStar />
-                      </span>
-                    ))}
-                  </div>
+                 
                 </div>
                 <p className="text-[14px] lg:text-[16px]">
                   {produk?.produk?.deskripsi}
@@ -124,71 +111,10 @@ export default function Detail() {
                     <FormatRupiah value={`${produk?.produk?.harga * count}`} />
                   </p>
 
-                  <div className="flex gap-x-1  ">
-                    <label
-                      className={`${
-                        produk?.produk?.ukuran_XL == 0 && "opacity-50"
-                      } w-8 h-8  relative  flex justify-center items-center rounded-lg cursor-pointer hover:bg-abu/75 translinear bg-abu`}
-                    >
-                      <input
-                        type="checkbox"
-                        name="size"
-                        disabled={produk?.produk?.ukuran_XL === 0 && true}
-                        onChange={handleOnchange}
-                        className="absolute w-full h-full opacity-0 cursor-pointer"
-                        value={"XL"}
-                      />
-                      XL
-                    </label>
-                    <label
-                      className={`${
-                        produk?.produk?.ukuran_L == 0 && "opacity-50"
-                      } w-8 h-8  relative  flex justify-center items-center rounded-lg cursor-pointer hover:bg-abu/75 translinear bg-abu`}
-                    >
-                      <input
-                        type="checkbox"
-                        name="size"
-                        disabled={produk?.produk?.ukuran_L === 0 && true}
-                        onChange={handleOnchange}
-                        className="absolute w-full h-full opacity-0 cursor-pointer"
-                        value={"L"}
-                      />
-                      L
-                    </label>
-                    <label
-                      className={`${
-                        produk?.produk?.ukuran_M == 0 && "opacity-50"
-                      } w-8 h-8  relative  flex justify-center items-center rounded-lg cursor-pointer hover:bg-abu/75 translinear bg-abu`}
-                    >
-                      <input
-                        type="checkbox"
-                        name="size"
-                        disabled={produk?.produk?.ukuran_M === 0 && true}
-                        onChange={handleOnchange}
-                        className="absolute w-full h-full opacity-0 cursor-pointer "
-                        value={"M"}
-                      />
-                      M
-                    </label>
-                    <label
-                      className={`${
-                        produk?.produk?.ukuran_S == 0 && "opacity-50"
-                      } w-8 h-8  relative  flex justify-center items-center rounded-lg cursor-pointer hover:bg-abu/75 translinear bg-abu`}
-                    >
-                      <input
-                        type="checkbox"
-                        name="size"
-                        disabled={produk?.produk?.ukuran_S === 0 && true}
-                        onChange={handleOnchange}
-                        className="absolute w-full h-full opacity-0 cursor-pointer"
-                        value={"S"}
-                      />
-                      S
-                    </label>
-                  </div>
+                 
                 </div>
                 <div className="flex lg:justify-start  gap-x-2  lg:gap-x-2 justify-between items-center">
-                  <div className="w-[8rem] h-12 border mt-2 items-center border-abu rounded-xl bg-abu flex ">
+                  <div className="w-[8rem] h-12 border mt-2 items-center border-abu rounded-xl bg-white flex ">
                     <button
                       disabled={count == 1 && true}
                       onClick={() =>
@@ -240,20 +166,11 @@ export default function Detail() {
                     <IoIosCart /> keranjang
                   </button>
                 </div>
-                <div className="lg:w-1/2">
-                  Produk ini telah dibeli sebanyak {produk?.jml_pembelian}x dan
-                  dirating oleh {produk?.rating} pengguna
-                </div>
+             
               </>
             )}
           </div>
-          <div className="lg:col-start-2 mb-20">
-            {/* <h1 className="title">Ulasan Pembeli</h1> */}
-            <div className="lg:w-full flex flex-col gap-y-2">
-              <h1 className="title">Ulasan Pembeli</h1>
-              {produk && <Ulasan data={produk} />}
-            </div>
-          </div>
+    
         </div>
       </div>
     </>

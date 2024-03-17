@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import CardProduk from "./card/CardProduk";
 import Skeleton from "./loading/Skeleton";
 import Fetcher from "../utils/Fetcher";
+import CardProduk from "./Card/CardProduk";
 
 export default function ProdukHome() {
   const { data, loading, error } = Fetcher("produk-home");
